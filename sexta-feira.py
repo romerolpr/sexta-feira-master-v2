@@ -3,16 +3,13 @@
 # =>
 # Essa versão não faz uso do "selenium", portanto não verifica o scroll nos projetos
 
-import re
-import json
-import random
-import os.path
 from socket import error as socket_error
 from tqdm.auto import tqdm
-from requests_html import HTMLSession
 from datetime import datetime
-from collections import defaultdict
 from colorama import Fore, Style
+from requests_html import HTMLSession
+
+session = HTMLSession()
 
 # variaveis data
 date_current = datetime.now()
@@ -61,9 +58,15 @@ erroValidacao = {
 
 # Função para limpar a URL
 def urlBase(limpaUrl):
-    limpaUrl = limpaUrl.split('//')
-    limpaUrl = limpaUrl[1].split('/')
-    return limpaUrl[0]
+    try:
+        limpaUrl = limpaUrl.split('//')
+        limpaUrl = limpaUrl[1].split('/')
+    except:
+        print(Fore.RED)
+        print(f'Não foi possível limpar a URL do projeto especificado.', Style.RESET_ALL)
+        return False
+    else:
+        return limpaUrl[0]
 
 # Função para retornar a URL do projeto no mpitemporario ex: http://mpitemporario.com.br/projetos/tse.com.br/ === tse.com.br
 def urlProjetoMpitemporario(limpaUrl):
@@ -82,6 +85,7 @@ def ValidaUrl(url):
 
 # Função para pegar todas as URLs do site
 def PegaLinksDoSite(UrlSite):
+
     try:
         r = session.get(UrlSite)
         linksDaPagina = r.html.xpath('//a[not(@rel="nofollow")]/@href')
@@ -103,7 +107,8 @@ def PegaLinksDoSite(UrlSite):
 
     except:
         print(Fore.RED)
-        print(f'- Não foi possível validar as URLs do projeto =>\n {UrlSite}', Style.RESET_ALL)
+        print(f'- Não foi possível validar a URL do projeto =>\n {UrlSite}', Style.RESET_ALL)
+        return False
     else:
         rm = session.get(UrlSite + '/mapa-site')
         sitemapElements = rm.html.find('.sitemap li a')
@@ -117,11 +122,16 @@ def PegaLinksDoSite(UrlSite):
         else:
             for linkMPI in subMenuInfo:
                 linksConfirmados['MPI'].append(linkMPI.attrs['href'])
-                
-    return linksConfirmados
+    try:        
+        return linksConfirmados
+    except:
+        print(Fore.RED)
+        print(f'Não foi possível realizar o rastreamento de links do projeto\n=> {UrlSite}')
 
 # Função para validar o W3C da pagina.
 def VerificaW3C(pagina):
+
+
     w3cLink = f"https://validator.w3.org/nu/?doc={pagina}"  
     try:
         r = session.get(w3cLink)
@@ -134,6 +144,8 @@ def VerificaW3C(pagina):
 
 # Função para validar a description e  H1 da pagina
 def VerificaDescriptionH1(pagina, r):
+
+
     try:
         description = r.html.find('head meta[name="description"]', first=True).attrs['content']
         h1 = r.html.find('h1')
@@ -161,6 +173,8 @@ def VerificaMapaDoSite(pagina):
 
 #Função para validar Menu header e menu footer
 def VerificaMenuHeaderFooter(pagina, r):
+
+
     try:
         menuTopTexts = r.html.xpath('//header//nav/ul/li/a/text()')
         menuFooterTexts = r.html.xpath('//footer//nav/ul/li/a/text()')
@@ -186,6 +200,13 @@ def VerificaMenuHeaderFooter(pagina, r):
 
 # Função para validar PageSpeed da home e 3 MPI(aleatoria)
 def PageSpeed(link):
+
+    #import
+    import random
+    import json
+    from requests_html import HTMLSession
+    session = HTMLSession()
+
     try:
         pagespeedUrls = [link]
 
@@ -230,6 +251,8 @@ def PageSpeed(link):
 
 # Função para validar ALT e TITLE
 def VerificaAltTitle(pagina, r):
+
+
     def hrefSrc(link):
         try:
             return link.split(url.split('//')[-1])[-1]
@@ -275,6 +298,7 @@ def VerificaAltTitle(pagina, r):
     
 #Função para verificar links duplicados na coluna lateral
 def VerificaColunaLateral(pagina, r):
+    from collections import defaultdict
     if r.html.find('aside'):
         try:
             asideLinks = r.html.xpath("//html//body//main//aside//nav//a/@href")
@@ -292,6 +316,8 @@ def VerificaColunaLateral(pagina, r):
                 
 #Função para validar imagens             
 def VerificaImagem(pagina, r):
+
+
     try:
         imagens = r.html.xpath('//body//img/@src')
         for imagem in imagens:    
@@ -302,6 +328,8 @@ def VerificaImagem(pagina, r):
 
 
 def VerificaMPI(pagina, r):
+
+
     try:
         description = r.html.find('head meta[name="description"]', first=True).attrs['content']
         images = len(r.html.find('article ul.gallery img'))
@@ -412,28 +440,10 @@ def VerificaMPI(pagina, r):
         if descriptionNoTexto == 0:
             errosEncontrado['Description atual não foi encontrada no texto MPI'].append(f'=> {pagina}')
 
-# Função para pegar todas as Urls que estão dentro do arquivo sites.txt
-def Urls():      
-    with open("sites.txt", "r+") as sites:
-        arrayUrl = []
-        linha = sites.readlines()
-        if len(linha) > 0:
-            for url in linha:
-                arrayUrl.append(url.strip("\n").strip(" "))
-        else:
-            print(Fore.YELLOW)
-            print('Ops! O arquivo "sites.txt" está vazio.\n')
-            getUrl = str(input('Por favor informe as URL\'s separando-as por vírgula:\n'))
-            getUrl = getUrl.strip(",")
-            if len(getUrl) > 0:
-                sites.write(getUrl+'\n')
-                for url in linha:
-                    arrayUrl.append(url.strip("\n").strip(" "))
-            else:
-                arrayUrl.append(getUrl)
-    return arrayUrl
-
+# gerar as listas
 def generateError(url, status):
+
+    import os.path
 
     log = False
     for erro in erroValidacao.keys():
@@ -443,7 +453,7 @@ def generateError(url, status):
 
     def writeProjects(url, status):
         # abre arquivo e escreve
-        with open(f"projetos/{param}-{url}.txt", "a", -1, "utf-8") as arquivo:
+        with open(f"projetos/{status}-{url}.txt", "a", -1, "utf-8") as arquivo:
 
             for errosItens in errosEncontrado.keys():
                 if len(errosEncontrado[errosItens]) > 0:
@@ -491,178 +501,224 @@ def generateError(url, status):
         else: 
             writeNot(url)
 
-urls = Urls()
-session = HTMLSession()
-
-for url in urls:
-    root = urlBase(url)
-    print(Fore.YELLOW)
-    print('=> {}'.format(url))
-    print(Fore.GREEN)
-    print('Rastreando e categorizando os links...\n', Style.RESET_ALL)
-
-    listaDeLinks = PegaLinksDoSite(url)
-
-    if listaDeLinks:
-        print(Fore.YELLOW)
-        print('- Iniciando validações...\n', Style.RESET_ALL)
-    def execute(urls):
-        try:
-            for pagina in tqdm(listaDeLinks['Todos']):
-
-                r = session.get(pagina)
-
-                VerificaW3C(pagina)
-                VerificaDescriptionH1(pagina, r)
-                VerificaAltTitle(pagina, r)
-                VerificaMapaDoSite(pagina)
-                VerificaImagem(pagina, r)
-
-
-                if pagina == url:
-                    VerificaMenuHeaderFooter(pagina, r)
-                    PageSpeed(pagina)
-
-                if pagina in listaDeLinks['Mapa Site']:
-                    VerificaColunaLateral(pagina, r)
-
-                if pagina in listaDeLinks['MPI']: 
-                    VerificaMPI(pagina, r)
-
-        except:
-            print(Fore.RED)
-            print('Não foi possível realizar a validação do projeto\n=> {}'.format(url), Style.RESET_ALL)
-            erroValidacao['Erro ao realizar validação'].append(f'=> {url}')
-            generateError(urlProjetoMpitemporario(url), False)    
+# Função para pegar todas as Urls que estão dentro do arquivo sites.txt
+def Urls():      
+    with open("sites.txt", "r+") as sites:
+        arrayUrl = []
+        linha = sites.readlines()
+        if len(linha) > 0:
+            for url in linha:
+                arrayUrl.append(url.strip("\n").strip(" ").strip(","))
         else:
+            arrayUrl = False
+    return arrayUrl
 
-            print(Fore.YELLOW)   
 
-            countErrors = 0
-            if len(errosEncontrado['W3C']) > 0:
-                print('- Erro(s) de W3C\n=> ( {} )'.format(len(errosEncontrado['W3C'])))
-                countErrors += len(errosEncontrado['W3C'])
+def getUrls():
+    with open("sites.txt", "r+") as sites:
 
-            if len(errosEncontrado['Description com números de caracteres incorretos']) > 0:    
-                print('- Description com números de caracteres incorretos\n=> ( {} )'.format(len(errosEncontrado['Description com números de caracteres incorretos'])))
-                countErrors += len(errosEncontrado['Description com números de caracteres incorretos'])
+        #define variáveis
+        arrayUrl = []
+        linha = sites.readlines()
 
-            if len(errosEncontrado['Pagina com mais de um H1']) > 0: 
-                print('- Paginas com mais de um H1\n=> ( {} )'.format(len(errosEncontrado['Pagina com mais de um H1'])))
-                countErrors += len(errosEncontrado['Pagina com mais de um H1'])
+        #escreve inicializador
+        print(Fore.YELLOW)
+        print('┌──────────────────────────────────────────────────┐')
+        print('│                   GUIA DE USO                    │')
+        print('└──────────────────────────────────────────────────┘')
+        print('│                                                  │')
+        print('│                                                  │')
+        print('│ - Dica: Insira as URL\'s no arquivo "sites.txt"   │')
+        print('│                                                  │')
+        print('│ - Insira as URL\'s dos projetos para validação    │')
+        print('│                                                  │')
+        print('│ Exemplo: [url], [url], [url] [...]               │')
+        print('│                                                  │')
+        print('│                                                  │')
+        print('└──────────────────────────────────────────────────┘')
+        print(Fore.WHITE)
+        getUrl = str(input('\nPor favor informe as URL\'s separando-as por vírgula:\n> '))
+        getUrl = getUrl.split(",")
+        if len(getUrl) > 0:
+            for appendUrl in getUrl:
+                sites.write(appendUrl+'\n')
+            for url in linha:
+                arrayUrl.append(url.strip("\n").strip(" ").strip(","))
+        else:
+            arrayUrl.append(getUrl)
+    return arrayUrl
 
-            if len(errosEncontrado['O H1 não foi encontrado na description']) > 0: 
-                print('- H1 não encontrado na description\n=> ( {} )'.format(len(errosEncontrado['O H1 não foi encontrado na description'])))
-                countErrors += len(errosEncontrado['O H1 não foi encontrado na description'])
+urls = Urls()
 
-            if len(errosEncontrado['H2 iguais a H1']) > 0: 
-                print('- H2 iguais a H1\n=> ( {} )'.format(len(errosEncontrado['H2 iguais a H1'])))
-                countErrors += len(errosEncontrado['H2 iguais a H1'])
-
-            if len(errosEncontrado['H2 duplicado']) > 0: 
-                print('- H2 duplicados em MPI\n=> ( {} )'.format(len(errosEncontrado['H2 duplicado'])))
-                countErrors += len(errosEncontrado['H2 duplicado'])
-
-            if len(errosEncontrado['Parágrafos duplicados']) > 0: 
-                print('- Parágrafoss duplicados em MPI\n=> ( {} )'.format(len(errosEncontrado['Parágrafos duplicados'])))
-                countErrors += len(errosEncontrado['Parágrafos duplicados'])
-
-            if len(errosEncontrado['A descrição não mencionou H1']) > 0: 
-                print('- Descriptions sem H1 mencionado\n=> ( {} )'.format(len(errosEncontrado['A descrição não mencionou H1'])))
-                countErrors += len(errosEncontrado['A descrição não mencionou H1'])
-
-            if len(errosEncontrado['MPI sem strong']) > 0: 
-                print('- MPI sem strong no article\n=> ( {} )'.format(len(errosEncontrado['MPI sem strong'])))
-                countErrors += len(errosEncontrado['MPI sem strong'])
-
-            if len(errosEncontrado['H2 com strong']) > 0: 
-                print('- H2 de MPIs com strong\n=> ( {} )'.format(len(errosEncontrado['H2 com strong'])))
-                countErrors += len(errosEncontrado['H2 com strong'])
-
-            if len(errosEncontrado['Palavra chave sem Strong']) > 0: 
-                print('- Palavra chave sem strong no article\n=> ( {} )'.format(len(errosEncontrado['Palavra chave sem Strong'])))
-                countErrors += len(errosEncontrado['Palavra chave sem Strong'])
-
-            if len(errosEncontrado['Elementos vazios na pagina']) > 0: 
-                print('- Quantidade de paginas com elementos vazios\n=> ( {} )'.format(len(errosEncontrado['Elementos vazios na pagina'])))
-                countErrors += len(errosEncontrado['Elementos vazios na pagina'])
-
-            if len(errosEncontrado['MPI sem imagens']) > 0: 
-                print('- MPIs sem imagems na gallery\n=> ( {} )'.format(len(errosEncontrado['MPI sem imagens'])))
-                countErrors += len(errosEncontrado['MPI sem imagens'])
-
-            if len(errosEncontrado['MPI sem H2']) > 0: 
-                print('- MPIs sem H2 no article\n=> ( {} )'.format(len(errosEncontrado['MPI sem H2'])))
-                countErrors += len(errosEncontrado['MPI sem H2'])
-
-            if len(errosEncontrado['H2 não foi mencionado em H1']) > 0: 
-                print('- H2 não mencionado no H1\n=> ( {} )'.format(len(errosEncontrado['H2 não foi mencionado em H1'])))
-                countErrors += len(errosEncontrado['H2 não foi mencionado em H1'])
-
-            if len(errosEncontrado['Alterar tag P para UL>li']) > 0: 
-                print('- Alterar tag P para UL > LI\n=> ( {} )'.format(len(errosEncontrado['Alterar tag P para UL>li'])))
-                countErrors += len(errosEncontrado['Alterar tag P para UL>li'])
-
-            if len(errosEncontrado['Sequência de UL']) > 0: 
-                print('- Sequências de UL\n=> ( {} )'.format(len(errosEncontrado['Sequência de UL'])))
-                countErrors += len(errosEncontrado['Sequência de UL'])
-
-            if len(errosEncontrado['Sequência de H2']) > 0: 
-                print('- Sequências de H2\n=> ( {} )'.format(len(errosEncontrado['Sequência de H2'])))
-                countErrors += len(errosEncontrado['Sequência de H2'])
-
-            if len(errosEncontrado['Description atual não foi encontrada no texto MPI']) > 0: 
-                print('- Description atual não encontrada na MPI\n=> ( {} )'.format(len(errosEncontrado['Description atual não foi encontrada no texto MPI'])))
-                countErrors += len(errosEncontrado['Description atual não foi encontrada no texto MPI'])
-
-            if len(errosEncontrado['ALT/TITLE']) > 0: 
-                print('- ALT/TITLE\n=> ( {} )'.format(len(errosEncontrado['ALT/TITLE'])))
-                countErrors += len(errosEncontrado['ALT/TITLE'])
-
-            if len(errosEncontrado['Links duplicados na coluna lateral']) > 0: 
-                print('- Links duplicados na coluna lateral\n=> ( {} )'.format(len(errosEncontrado['Links duplicados na coluna lateral'])))
-                countErrors += len(errosEncontrado['Links duplicados na coluna lateral'])
-
-            if len(errosEncontrado['Imagens quebradas']) > 0: 
-                print('- Número de imagens quebradas\n=> ( {} )'.format(len(errosEncontrado['Imagens quebradas'])))
-                countErrors += len(errosEncontrado['Imagens quebradas'])
-
-            if len(errosEncontrado['Menu']) > 0: 
-                print('- Menu diferente do menu footer')
-                countErrors += len(errosEncontrado['Menu'])
-
-            # PageSpeed LOG
-            if len(errosEncontrado['PageSpeed']) > 0: 
-                print('\n- Notas de PageSpeed baixas\n')
-                for i, elem in enumerate(errosEncontrado['PageSpeed']):
-                    print('=> '+elem)
-                    if i == 2:
-                        print('MPI\n')
-                print(Style.RESET_ALL)
-
-            if countErrors <= 35:
-                print(Fore.YELLOW)
-                print('Nível: MODERADO', Style.RESET_ALL)
-                nvl = 'MODERADO'
-            else:
-                print(Fore.RED)
-                print('Nível: CRÍTICO', Style.RESET_ALL)
-                nvl = 'CRÍTICO'
-
-            # gera a lista antes de tudo
-            generateError(urlProjetoMpitemporario(url), nvl)
-
-            # Limpa memória
-            for values in errosEncontrado:
-                del errosEncontrado[values][:]
-
-            for values in erroValidacao:
-                del erroValidacao[values][:]
-
+try:
+    for url in urls:
+        root = urlBase(url)
+        if root != False:
+            print(Fore.YELLOW)
+            print('=> {}'.format(url))
             print(Fore.GREEN)
-            print('\nValidação do projeto finalizada com sucesso!\n=> {}'.format(url), Style.RESET_ALL)
+            print('Rastreando e categorizando os links...\n', Style.RESET_ALL)
 
-    execute(urls)
+            listaDeLinks = PegaLinksDoSite(url)
 
+            if listaDeLinks != False:
+                print(Fore.YELLOW)
+                print('- Iniciando validações...\n', Style.RESET_ALL)
+                try:
+                    for pagina in tqdm(listaDeLinks['Todos']):
+
+                        r = session.get(pagina)
+
+                        VerificaW3C(pagina)
+                        VerificaDescriptionH1(pagina, r)
+                        VerificaAltTitle(pagina, r)
+                        VerificaMapaDoSite(pagina)
+                        VerificaImagem(pagina, r)
+
+
+                        if pagina == url:
+                            VerificaMenuHeaderFooter(pagina, r)
+                            PageSpeed(pagina)
+
+                        if pagina in listaDeLinks['Mapa Site']:
+                            VerificaColunaLateral(pagina, r)
+
+                        if pagina in listaDeLinks['MPI']: 
+                            VerificaMPI(pagina, r)
+
+                except:
+                    print(Fore.RED)
+                    print('Não foi possível realizar a validação do projeto\n=> {}'.format(url), Style.RESET_ALL)
+                    erroValidacao['Erro ao realizar validação'].append(f'=> {url}')
+                    generateError(urlProjetoMpitemporario(url), False)    
+                else:
+
+                    print(Fore.YELLOW)   
+
+                    countErrors = 0
+                    if len(errosEncontrado['W3C']) > 0:
+                        print('- Erro(s) de W3C\n=> ( {} )'.format(len(errosEncontrado['W3C'])))
+                        countErrors += len(errosEncontrado['W3C'])
+
+                    if len(errosEncontrado['Description com números de caracteres incorretos']) > 0:    
+                        print('- Description com números de caracteres incorretos\n=> ( {} )'.format(len(errosEncontrado['Description com números de caracteres incorretos'])))
+                        countErrors += len(errosEncontrado['Description com números de caracteres incorretos'])
+
+                    if len(errosEncontrado['Pagina com mais de um H1']) > 0: 
+                        print('- Paginas com mais de um H1\n=> ( {} )'.format(len(errosEncontrado['Pagina com mais de um H1'])))
+                        countErrors += len(errosEncontrado['Pagina com mais de um H1'])
+
+                    if len(errosEncontrado['O H1 não foi encontrado na description']) > 0: 
+                        print('- H1 não encontrado na description\n=> ( {} )'.format(len(errosEncontrado['O H1 não foi encontrado na description'])))
+                        countErrors += len(errosEncontrado['O H1 não foi encontrado na description'])
+
+                    if len(errosEncontrado['H2 iguais a H1']) > 0: 
+                        print('- H2 iguais a H1\n=> ( {} )'.format(len(errosEncontrado['H2 iguais a H1'])))
+                        countErrors += len(errosEncontrado['H2 iguais a H1'])
+
+                    if len(errosEncontrado['H2 duplicado']) > 0: 
+                        print('- H2 duplicados em MPI\n=> ( {} )'.format(len(errosEncontrado['H2 duplicado'])))
+                        countErrors += len(errosEncontrado['H2 duplicado'])
+
+                    if len(errosEncontrado['Parágrafos duplicados']) > 0: 
+                        print('- Parágrafoss duplicados em MPI\n=> ( {} )'.format(len(errosEncontrado['Parágrafos duplicados'])))
+                        countErrors += len(errosEncontrado['Parágrafos duplicados'])
+
+                    if len(errosEncontrado['A descrição não mencionou H1']) > 0: 
+                        print('- Descriptions sem H1 mencionado\n=> ( {} )'.format(len(errosEncontrado['A descrição não mencionou H1'])))
+                        countErrors += len(errosEncontrado['A descrição não mencionou H1'])
+
+                    if len(errosEncontrado['MPI sem strong']) > 0: 
+                        print('- MPI sem strong no article\n=> ( {} )'.format(len(errosEncontrado['MPI sem strong'])))
+                        countErrors += len(errosEncontrado['MPI sem strong'])
+
+                    if len(errosEncontrado['H2 com strong']) > 0: 
+                        print('- H2 de MPIs com strong\n=> ( {} )'.format(len(errosEncontrado['H2 com strong'])))
+                        countErrors += len(errosEncontrado['H2 com strong'])
+
+                    if len(errosEncontrado['Palavra chave sem Strong']) > 0: 
+                        print('- Palavra chave sem strong no article\n=> ( {} )'.format(len(errosEncontrado['Palavra chave sem Strong'])))
+                        countErrors += len(errosEncontrado['Palavra chave sem Strong'])
+
+                    if len(errosEncontrado['Elementos vazios na pagina']) > 0: 
+                        print('- Quantidade de paginas com elementos vazios\n=> ( {} )'.format(len(errosEncontrado['Elementos vazios na pagina'])))
+                        countErrors += len(errosEncontrado['Elementos vazios na pagina'])
+
+                    if len(errosEncontrado['MPI sem imagens']) > 0: 
+                        print('- MPIs sem imagems na gallery\n=> ( {} )'.format(len(errosEncontrado['MPI sem imagens'])))
+                        countErrors += len(errosEncontrado['MPI sem imagens'])
+
+                    if len(errosEncontrado['MPI sem H2']) > 0: 
+                        print('- MPIs sem H2 no article\n=> ( {} )'.format(len(errosEncontrado['MPI sem H2'])))
+                        countErrors += len(errosEncontrado['MPI sem H2'])
+
+                    if len(errosEncontrado['H2 não foi mencionado em H1']) > 0: 
+                        print('- H2 não mencionado no H1\n=> ( {} )'.format(len(errosEncontrado['H2 não foi mencionado em H1'])))
+                        countErrors += len(errosEncontrado['H2 não foi mencionado em H1'])
+
+                    if len(errosEncontrado['Alterar tag P para UL>li']) > 0: 
+                        print('- Alterar tag P para UL > LI\n=> ( {} )'.format(len(errosEncontrado['Alterar tag P para UL>li'])))
+                        countErrors += len(errosEncontrado['Alterar tag P para UL>li'])
+
+                    if len(errosEncontrado['Sequência de UL']) > 0: 
+                        print('- Sequências de UL\n=> ( {} )'.format(len(errosEncontrado['Sequência de UL'])))
+                        countErrors += len(errosEncontrado['Sequência de UL'])
+
+                    if len(errosEncontrado['Sequência de H2']) > 0: 
+                        print('- Sequências de H2\n=> ( {} )'.format(len(errosEncontrado['Sequência de H2'])))
+                        countErrors += len(errosEncontrado['Sequência de H2'])
+
+                    if len(errosEncontrado['Description atual não foi encontrada no texto MPI']) > 0: 
+                        print('- Description atual não encontrada na MPI\n=> ( {} )'.format(len(errosEncontrado['Description atual não foi encontrada no texto MPI'])))
+                        countErrors += len(errosEncontrado['Description atual não foi encontrada no texto MPI'])
+
+                    if len(errosEncontrado['ALT/TITLE']) > 0: 
+                        print('- ALT/TITLE\n=> ( {} )'.format(len(errosEncontrado['ALT/TITLE'])))
+                        countErrors += len(errosEncontrado['ALT/TITLE'])
+
+                    if len(errosEncontrado['Links duplicados na coluna lateral']) > 0: 
+                        print('- Links duplicados na coluna lateral\n=> ( {} )'.format(len(errosEncontrado['Links duplicados na coluna lateral'])))
+                        countErrors += len(errosEncontrado['Links duplicados na coluna lateral'])
+
+                    if len(errosEncontrado['Imagens quebradas']) > 0: 
+                        print('- Número de imagens quebradas\n=> ( {} )'.format(len(errosEncontrado['Imagens quebradas'])))
+                        countErrors += len(errosEncontrado['Imagens quebradas'])
+
+                    if len(errosEncontrado['Menu']) > 0: 
+                        print('- Menu diferente do menu footer')
+                        countErrors += len(errosEncontrado['Menu'])
+
+                    # PageSpeed LOG
+                    if len(errosEncontrado['PageSpeed']) > 0: 
+                        print('\n- Notas de PageSpeed baixas\n')
+                        for i, elem in enumerate(errosEncontrado['PageSpeed']):
+                            print('=> '+elem)
+                            if i == 2:
+                                print('MPI\n')
+                        print(Style.RESET_ALL)
+
+                    if countErrors <= 35:
+                        print(Fore.YELLOW)
+                        print('Nível: MODERADO', Style.RESET_ALL)
+                        nvl = 'MODERADO'
+                    else:
+                        print(Fore.RED)
+                        print('Nível: CRÍTICO', Style.RESET_ALL)
+                        nvl = 'CRÍTICO'
+
+                    # gera a lista antes de tudo
+                    generateError(urlProjetoMpitemporario(url), nvl)
+
+                    # Limpa memória
+                    for values in errosEncontrado:
+                        del errosEncontrado[values][:]
+
+                    for values in erroValidacao:
+                        del erroValidacao[values][:]
+
+                    print(Fore.GREEN)
+                    print('\nValidação do projeto finalizada com sucesso!\n=> {}'.format(url), Style.RESET_ALL)
+except:
+    getUrls()
 # mensagem final 
 input('\nA validação dos projetos foi finalizada. Aperte a tecla "ENTER" para encerrar\n')
