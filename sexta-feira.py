@@ -440,9 +440,10 @@ def generateError(url, status):
         if len(erroValidacao[erro]) > 0:
             log = True
             break
-    
-    if status:
-        with open(f"projetos/{status}-{url}.txt", "a", -1, "utf-8") as arquivo:
+
+    def writeProjects(url, status):
+        # abre arquivo e escreve
+        with open(f"projetos/{param}-{url}.txt", "a", -1, "utf-8") as arquivo:
 
             for errosItens in errosEncontrado.keys():
                 if len(errosEncontrado[errosItens]) > 0:
@@ -450,7 +451,6 @@ def generateError(url, status):
                     for errosValores in errosEncontrado[errosItens]:
                         arquivo.write(f'{errosValores} \n')
                     arquivo.write('\n')
-                    
             if log:
                 arquivo.write('Funções não executadas nas URL\n=> {}\n'.format(url))
                 for errosItensValidacao in erroValidacao.keys():
@@ -461,12 +461,35 @@ def generateError(url, status):
                             arquivo.write(f'{errosValores} \n')
 
                         arquivo.write('\n')
-    else:        
-        # gera novo arquivo dos sites não validados
+
+    def writeNot(url):
         if len(erroValidacao['Erro ao realizar validação']) > 0:
             with open(f'projetos/1-lista-nao-validados.txt', 'a', -1, 'utf-8') as arquivo:
-                arquivo.write(f'LISTA DE SITES NÃO VALIDADOS\n')
                 arquivo.write('[{}] \n=> {}\n'.format(date, url))
+    
+    if status:
+
+        # verifica se existe pasta projetos
+        if not os.path.exists('projetos'):
+            try:
+                os.makedirs('projetos')
+                writeProjects(url, status)
+            except OSError:
+                print(Fore.RED)
+                print('Não foi possível gerar lista de erros do projeto\n=> {}'.format(url), Style.RESET_ALL)
+        else:
+            writeProjects(url, status)
+    else:
+    # gera novo arquivo dos sites não validados 
+        if not os.path.exists('projetos'):
+            try:
+                os.makedirs('projetos')
+                writeNot(url)
+            except OSError:
+                print(Fore.RED)
+                print('Não foi possível gerar lista de erros do projeto\n=> {}'.format(url), Style.RESET_ALL)
+        else: 
+            writeNot(url)
 
 urls = Urls()
 session = HTMLSession()
@@ -488,11 +511,13 @@ for url in urls:
             for pagina in tqdm(listaDeLinks['Todos']):
 
                 r = session.get(pagina)
-                VerificaMapaDoSite(pagina)
-                VerificaDescriptionH1(pagina, r)
-                VerificaImagem(pagina, r)
-                VerificaAltTitle(pagina, r)
+
                 VerificaW3C(pagina)
+                VerificaDescriptionH1(pagina, r)
+                VerificaAltTitle(pagina, r)
+                VerificaMapaDoSite(pagina)
+                VerificaImagem(pagina, r)
+
 
                 if pagina == url:
                     VerificaMenuHeaderFooter(pagina, r)
@@ -640,5 +665,4 @@ for url in urls:
     execute(urls)
 
 # mensagem final 
-print(Fore.GREEN)
 input('\nA validação dos projetos foi finalizada. Aperte a tecla "ENTER" para encerrar\n')
