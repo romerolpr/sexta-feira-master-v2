@@ -1,15 +1,18 @@
-from requests_html import HTMLSession
+# Importante
+# 30 de Ago de 2020
+# =>
+# Essa versão não faz uso do "selenium", portanto não verifica o scroll nos projetos
+
 import re
-from tqdm.auto import tqdm
-from socket import error as socket_error
 import json
 import random
+import os.path
+from socket import error as socket_error
+from tqdm.auto import tqdm
+from requests_html import HTMLSession
 from datetime import datetime
 from collections import defaultdict
 from colorama import Fore, Style
-from selenium import webdriver
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-from selenium.webdriver.firefox.options import Options
 
 # variaveis data
 date_current = datetime.now()
@@ -479,7 +482,7 @@ for url in urls:
 
     if listaDeLinks:
         print(Fore.YELLOW)
-        print('- Iniciando as validações...\n', Style.RESET_ALL)
+        print('- Iniciando validações...\n', Style.RESET_ALL)
     def execute(urls):
         try:
             for pagina in tqdm(listaDeLinks['Todos']):
@@ -608,6 +611,8 @@ for url in urls:
                 print('\n- Notas de PageSpeed baixas\n')
                 for i, elem in enumerate(errosEncontrado['PageSpeed']):
                     print('=> '+elem)
+                    if i == 2:
+                        print('MPI\n')
                 print(Style.RESET_ALL)
 
             if countErrors <= 35:
