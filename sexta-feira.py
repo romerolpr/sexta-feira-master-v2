@@ -56,6 +56,41 @@ erroValidacao = {
     'Erro ao realizar validação':[]
 }
 
+
+def getUrls():
+    with open("sites.txt", "r+") as sites:
+
+        #define variáveis
+        arrayUrl = []
+        linha = sites.readlines()
+
+        #escreve inicializador
+        print(Fore.YELLOW)
+        print('┌──────────────────────────────────────────────────┐')
+        print('│                   GUIA DE USO                    │')
+        print('└──────────────────────────────────────────────────┘')
+        print('│                                                  │')
+        print('│                                                  │')
+        print('│ - Dica: Insira as URL\'s no arquivo "sites.txt"   │')
+        print('│                                                  │')
+        print('│ - Insira as URL\'s dos projetos para validação    │')
+        print('│                                                  │')
+        print('│ Exemplo: [url], [url], [url] [...]               │')
+        print('│                                                  │')
+        print('│                                                  │')
+        print('└──────────────────────────────────────────────────┘')
+        print(Fore.WHITE)
+        getUrl = str(input('\nPor favor informe as URL\'s separando-as por vírgula:\n> '))
+        getUrl = getUrl.split(",")
+        if len(getUrl) > 0:
+            for appendUrl in getUrl:
+                sites.write(appendUrl+'\n')
+            for url in linha:
+                arrayUrl.append(url.strip("\n").strip(" ").strip(","))
+        else:
+            arrayUrl.append(getUrl)
+    return arrayUrl
+
 # Função para limpar a URL
 def urlBase(limpaUrl):
     try:
@@ -511,41 +546,6 @@ def Urls():
                 arrayUrl.append(url.strip("\n").strip(" ").strip(","))
         else:
             arrayUrl = False
-    return arrayUrl
-
-
-def getUrls():
-    with open("sites.txt", "r+") as sites:
-
-        #define variáveis
-        arrayUrl = []
-        linha = sites.readlines()
-
-        #escreve inicializador
-        print(Fore.YELLOW)
-        print('┌──────────────────────────────────────────────────┐')
-        print('│                   GUIA DE USO                    │')
-        print('└──────────────────────────────────────────────────┘')
-        print('│                                                  │')
-        print('│                                                  │')
-        print('│ - Dica: Insira as URL\'s no arquivo "sites.txt"   │')
-        print('│                                                  │')
-        print('│ - Insira as URL\'s dos projetos para validação    │')
-        print('│                                                  │')
-        print('│ Exemplo: [url], [url], [url] [...]               │')
-        print('│                                                  │')
-        print('│                                                  │')
-        print('└──────────────────────────────────────────────────┘')
-        print(Fore.WHITE)
-        getUrl = str(input('\nPor favor informe as URL\'s separando-as por vírgula:\n> '))
-        getUrl = getUrl.split(",")
-        if len(getUrl) > 0:
-            for appendUrl in getUrl:
-                sites.write(appendUrl+'\n')
-            for url in linha:
-                arrayUrl.append(url.strip("\n").strip(" ").strip(","))
-        else:
-            arrayUrl.append(getUrl)
     return arrayUrl
 
 urls = Urls()
