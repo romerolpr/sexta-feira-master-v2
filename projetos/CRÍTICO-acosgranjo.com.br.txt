@@ -1,0 +1,332 @@
+W3C: 
+=> http://mpitemporario.com.br/projetos/nsautomacao.com/produtos 
+
+O H1 não foi encontrado na description: 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/ 
+
+Links não encontrados do Mapa no site: 
+=> http://mpitemporario.com.br/projetos/acosgranjo.com.br/ 
+
+Menu: 
+=> Links do menu footer diferente do menu header 
+
+PageSpeed: 
+Mobile - 82 
+
+ALT/TITLE: 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/produto-barra-chata - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/produto-barras-quadradas-laminada - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/produto-barras-quadradas-trefilada - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/produto-barras-redonda-laminada - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/produto-barras-redonda-trefilada - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/produto-cantoneira-abas-iguais - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/produto-chapa-expandida - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/produto-chapa-fina-frio - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/produto-chapa-fina-quente - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/produto-chapa-grossa - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/produto-chapa-piso-xadrez - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/produto-chapa-zincada-galvanizada - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/produto-oxicorte - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/produto-corte-dobra - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/produto-painel-wall - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/produto-perfil-serralheiro - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/produto-perfil-u-estrutural-enrijecido - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/produto-perfil-u-estrutural-simples - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/produto-perfil-w-abas-paralelas-h-hp - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/produto-perfil-w-abas-paralelas-i - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/produto-formulas-calculo-peso - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/produto-tabela-conversao-polegadas-milimetros - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/produto-tubos-antiga-norma-din2440-nbr5580 - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/produto-tubos-industrial-quadrado - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/produto-tubos-industrial-redondo - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/produto-tubo-industrial-retangular - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/produto-tubo-sch-40-80-nbr-5590 - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/produto-tubo-galvanizada-rosca - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/produto-vigas-i-abas-inclinadas - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/produto-vigas-u-abas-inclinadas - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/acos-gerdau - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/barra-chata-ferro-preco - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/barra-chata-sp - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/cantoneira-aco-galvanizado - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/cantoneira-aco-preco - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/cantoneira-ferro-galvanizado-preco - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/cantoneira-ferro-preco - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/cantoneira-ferro-sp - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/cantoneiras-aco - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/cantoneiras-aco-guarulhos - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/cantoneiras-ferro-galvanizado - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/cantoneiras-ferro-guarulhos - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/chapa-expandida-sp - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/chapa-ferro-expandida - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/chapa-ferro-perfurada - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/chapa-ferro-xadrez - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/chapa-ferro-xadrez-preco - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/chapa-fina-frio - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/chapa-fina-quente - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/chapa-painel-wall - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/chapa-tipo-wall - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/chapa-wall-preco - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/chapas-expandidas - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/chapas-fina-frio - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/chapas-fina-quente - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/chapas-galvanizadas - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/chapas-galvanizadas-sp - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/chapas-perfuradas - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/chapas-wall - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/chapas-xadrez - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/comprar-eletrodo-esab - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/comprar-metalon - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/comprar-perfil-w - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/comprar-tubo-metalon - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/comprar-viga-i - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/conexoes-galvanizadas - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/conexoes-galvanizadas-preco - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/conexoes-galvanizadas-sp - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/corte-dobra - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/corte-dobra-chapa-xadrez - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/corte-dobra-chapas - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/servico-corte-dobra-chapas - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/corte-dobra-chapas-abc - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/corte-dobra-chapas-aco - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/corte-dobra-chapas-galvanizadas - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/corte-dobra-chapas-sp - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/disco-corte-preco - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/disco-corte-sp - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/distribuidor-aco - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/distribuidor-arames-mig - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/distribuidor-arcelor-mittal - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/distribuidor-arcelormittal-sp - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/distribuidor-cantoneiras-aco - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/distribuidor-cantoneiras-ferro - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/distribuidor-chapa-fina-frio - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/distribuidor-chapas-aco - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/distribuidor-chapas-wall - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/distribuidor-eletrodo-esab - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/distribuidor-eletrodos - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/distribuidor-ferro-aco - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/distribuidor-ferro-chato - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/distribuidor-ferro-quadrado - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/distribuidor-ferro-redondo - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/distribuidor-ferro-tee - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/distribuidor-gerdau-sp - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/distribuidor-maquinas-solda - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/distribuidor-painel-wall - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/distribuidor-perfil-u - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/distribuidor-perfis-u-dobrado - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/distribuidor-tubos-aco - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/distribuidor-tubos-din-2440 - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/distribuidor-tubos-quadrados - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/distribuidor-tubos-redondos - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/distribuidor-tubos-retangulares - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/distribuidor-viga-i - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/distribuidor-viga-u - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/distribuidora-barra-chata - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/distribuidora-disco-corte - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/distribuidora-ferro-industria - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/distribuidora-ferro-quadrado - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/distribuidora-ferro-redondo - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/distribuidora-ferro-serralheria - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/distribuidora-perfil-w - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/distribuidores-cantoneiras-aco - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/distribuidores-maquinas-solda - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/eletrodo-esab - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/eletrodos-solda - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/empresa-corte-dobra-chapas - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/empresa-ferro-aco - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/empresa-ferro-aco-sbc - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/empresa-ferro-aco-sp - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/empresas-oxicorte - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/empresas-oxicorte-sp - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/equipamentos-seguranca - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/ferramentas-manuais-eletricas - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/ferro-aco - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/ferro-chato - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/ferro-chato-onde-comprar - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/ferro-chato-sp - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/ferro-gerdau - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/ferro-quadrado - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/ferro-quadrado-preco - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/ferro-redondo - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/ferro-redondo-preco - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/ferro-redondo-sao-paulo - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/ferro-tee - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/ferro-tee-preco - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/ferros-quadrados - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/ferros-tee - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/fornecedor-barra-chata - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/fornecedor-chapa-expandida - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/fornecedor-chapa-fina-quente - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/fornecedor-eletrodo - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/fornecedor-metalon - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/fornecedor-perfis-aco - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/fornecedor-tubos-aco - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/fornecedor-viga-u - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/fornecedor-viga-w - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/fornecedores-perfil-w - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/fornecedores-viga-i - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/lixas-discos-abrasivos - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/maquinas-inversoras - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/maquinas-solda - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/maquinas-solda-sp - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/metalon-sp - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/onde-comprar-painel-wall - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/oxicorte - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/oxicorte-chapas - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/oxicorte-chapas-grossas - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/oxicorte-preco - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/painel-wall - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/painel-wall-eternit - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/painel-wall-sp - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/perfil-chapa-dobrada - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/perfil-chapa-dobrada-u - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/perfil-metalico-w - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/perfil-metalico-w-preco - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/perfil-u-venda - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/perfil-w-preco - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/perfis-aco-chapa-dobrada - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/perfis-serralheiro - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/perfis-u-dobrados - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/portas-aco - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/serras-corte - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/servico-corte-dobra - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/servico-oxicorte - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/telhas-galvanizadas - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/tubo-aco-carbono-comprar - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/tubo-aco-carbono-costura - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/tubo-aco-carbono-preco - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/tubo-aco-costura-preco - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/tubo-com-costura - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/tubo-costura - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/tubo-costura-aco-carbono - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/tubo-costura-preco - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/tubo-ferro-ranhurado - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/tubo-industrial-costura - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/tubo-industrial-quadrado - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/tubo-industrial-quadrado-preco - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/tubo-industrial-redondo - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/tubo-industrial-redondo-preco - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/tubo-industrial-retangular - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/tubo-industrial-retangular-preco - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/tubo-metalon - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/tubo-quadrado-aco-preto - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/tubo-quadrado-ferro - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/tubo-ranhurado - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/tubo-redondo-aco - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/tubo-redondo-comprar - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/tubo-redondo-ferro - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/tubo-redondo-ferro-preco - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/tubo-schedule-preco - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/tubos-aco-carbono - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/tubos-acos-carbono-sao-paulo - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/tubos-conducao-costura - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/tubos-costura-preco - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/tubos-din-2440 - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/tubos-din-2440-sao-paulo - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/tubos-galvanizados - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/tubos-mecanicos-laminados - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/tubos-quadrados - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/tubos-quadrados-aco - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/tubos-redondos - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/tubos-redondos-sao-paulo - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/tubos-retangulares - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/valvula-hidrante-industrial - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/valvula-hidrante-preco - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/valvulas-hidrantes - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/viga-i-construcao - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/viga-i-construcao-civil - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/viga-i-laminada-preco - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/viga-i-onde-comprar - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/viga-i-preco-sp - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/viga-i-sp - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/viga-u-laminada-preco - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/viga-u-onde-comprar - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/viga-u-sp - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/viga-w-laminada - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/viga-w-metalica - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/viga-w-onde-comprar - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/vigas-aco - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/vigas-ferro-construcao - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/vigas-i - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/vigas-i-preco - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/vigas-laminadas - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/vigas-laminadas-aco - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/vigas-u - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/vigas-w - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/vigas-w-acominas - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+=>  https://mpitemporario.com.br/projetos/acosgranjo.com.br/wall-onde-comprar - href='http://www.facebook.com/acosgranjo' Link sem TITLE 
+
+MPI sem strong: 
+=> http://mpitemporario.com.br/projetos/nsautomacao.com/barreira-seguranca-intrinseca 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/acos-gerdau 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/cantoneira-ferro-galvanizado-preco 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/ferro-chato-sp 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/ferro-redondo-sao-paulo 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/painel-wall 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/tubos-redondos-sao-paulo 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/tubos-retangulares 
+
+H2 com strong: 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/viga-u-sp 
+
+MPI sem H2: 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/distribuidor-ferro-chato 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/distribuidor-ferro-quadrado 
+
+Alterar tag P para UL>li: 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/servico-corte-dobra-chapas 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/tubo-industrial-quadrado-preco 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/tubos-quadrados-aco 
+
+Description atual não foi encontrada no texto MPI: 
+=> http://mpitemporario.com.br/projetos/nsautomacao.com/barreira-seguranca-intrinseca 
+=> http://mpitemporario.com.br/projetos/nsautomacao.com/conversor-0-5-4-20ma 
+=> http://mpitemporario.com.br/projetos/nsautomacao.com/distribuidor-pr-electronics 
+=> http://mpitemporario.com.br/projetos/nsautomacao.com/isolador-galvanico 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/comprar-metalon 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/disco-corte-preco 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/distribuidor-arcelormittal-sp 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/distribuidor-eletrodo-esab 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/distribuidor-ferro-aco 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/distribuidores-maquinas-solda 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/ferramentas-manuais-eletricas 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/ferro-aco 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/ferros-quadrados 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/fornecedor-chapa-expandida 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/fornecedor-chapa-fina-quente 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/fornecedor-perfis-aco 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/fornecedor-viga-u 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/fornecedores-perfil-w 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/painel-wall 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/tubos-acos-carbono-sao-paulo 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/tubos-costura-preco 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/tubos-din-2440-sao-paulo 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/tubos-galvanizados 
+
+Palavra chave sem Strong: 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/cantoneiras-aco - 14° parágrafo sem strong 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/chapas-fina-quente - 7° parágrafo sem strong 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/chapas-xadrez - 5° parágrafo sem strong 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/conexoes-galvanizadas - 1° parágrafo sem strong 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/distribuidor-chapas-aco - 3° parágrafo sem strong 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/distribuidor-ferro-aco - 2°, 3°, 4°, 5°, 6°, 7°, 8°, 9° parágrafo sem strong 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/distribuidor-ferro-quadrado - 4° parágrafo sem strong 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/distribuidor-ferro-tee - 3°, 4° parágrafo sem strong 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/distribuidor-perfil-u - 4° parágrafo sem strong 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/distribuidores-maquinas-solda - 1°, 2°, 3°, 4°, 5°, 6°, 7°, 8°, 9° parágrafo sem strong 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/equipamentos-seguranca - 3° parágrafo sem strong 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/ferro-aco - 5°, 6° parágrafo sem strong 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/ferro-chato - 6°, 7°, 9° parágrafo sem strong 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/ferro-redondo - 8°, 9° parágrafo sem strong 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/ferros-quadrados - 1°, 2°, 4°, 7°, 8°, 11°, 12°, 14° parágrafo sem strong 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/ferros-tee - 3°, 4° parágrafo sem strong 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/maquinas-inversoras - 8° parágrafo sem strong 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/maquinas-solda - 3°, 10°, 12° parágrafo sem strong 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/perfis-u-dobrados - 1°, 3°, 12°, 13° parágrafo sem strong 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/tubo-ranhurado - 4°, 5° parágrafo sem strong 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/tubos-acos-carbono-sao-paulo - 1°, 2°, 4°, 5° parágrafo sem strong 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/tubos-din-2440 - 5°, 8° parágrafo sem strong 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/tubos-din-2440-sao-paulo - 1°, 2°, 3°, 5° parágrafo sem strong 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/tubos-galvanizados - 1°, 2°, 3°, 6°, 7° parágrafo sem strong 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/tubos-quadrados - 6° parágrafo sem strong 
+=> https://mpitemporario.com.br/projetos/acosgranjo.com.br/viga-w-onde-comprar - 13° parágrafo sem strong 
+

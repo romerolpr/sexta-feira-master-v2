@@ -4,11 +4,57 @@ from tqdm.auto import tqdm
 from socket import error as socket_error
 import json
 import random
+from datetime import datetime
 from collections import defaultdict
 from colorama import Fore, Style
 from selenium import webdriver
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.firefox.options import Options
+
+# variaveis data
+date_current = datetime.now()
+date = date_current.strftime('%d/%m/%Y %H:%M:%S')
+
+errosEncontrado = {
+    'W3C':[],
+    'Description com números de caracteres incorretos':[],
+    'Pagina com mais de um H1':[],
+    'O H1 não foi encontrado na description':[],
+    'Links não encontrados do Mapa no site': [],
+    'Menu':[], 
+    'PageSpeed':[],
+    'ALT/TITLE':[],
+    'Scroll':[],
+    'Links duplicados na coluna lateral':[],
+    'Imagens quebradas':[],
+    'H2 iguais a H1':[],
+    'H2 duplicado':[],
+    'Parágrafos duplicados':[],
+    'A descrição não mencionou H1':[],
+    'MPI sem strong':[],
+    'H2 com strong':[],
+    'Elementos vazios na pagina':[],
+    'MPI sem imagens':[],
+    'MPI sem H2':[],
+    'H2 não foi mencionado em H1':[],
+    'Alterar tag P para UL>li':[],
+    'Sequência de UL':[],
+    'Sequência de H2':[],
+    'Description atual não foi encontrada no texto MPI':[],
+    'Palavra chave sem Strong':[]
+    }
+
+erroValidacao = {
+    'Função de validação do W3C':[],
+    'Função de validação description e H1':[],
+    'Função de validação Menu header e menu footer':[],
+    'Função de validação PageSpeed':[],
+    'Função de validação Scroll Horizontal':[],
+    'Função de validação ColunaLateral':[],
+    'Função de validação VerificaImagem':[],
+    'Função de validação de MPI':[],
+    'Erro ao realizar validação':[]
+}
 
 # Função para limpar a URL
 def urlBase(limpaUrl):
@@ -51,26 +97,25 @@ def PegaLinksDoSite(UrlSite):
                     Recursividade(pageLinks)
         
         Recursividade(linksDaPagina)
-        	
+
+    except:
+        print(Fore.RED)
+        print(f'- Não foi possível validar as URLs do projeto =>\n {UrlSite}', Style.RESET_ALL)
+    else:
         rm = session.get(UrlSite + '/mapa-site')
         sitemapElements = rm.html.find('.sitemap li a')
         for linkMapaDoSite in sitemapElements:
             linksConfirmados['Mapa Site'].append(linkMapaDoSite.attrs['href'])
-            
-        subMenuInfo = rm.html.find('.sitemap ul.sub-menu-info li a')
-
-        if len(subMenuInfo) > 0:
+        try:
+            subMenuInfo = rm.html.find('.sitemap ul.sub-menu-info li a')
+        except:
+            print('Não foi possível localizar as MPI\'s do projeto.')
+            linksConfirmados['MPI'].append('Nulo')
+        else:
             for linkMPI in subMenuInfo:
                 linksConfirmados['MPI'].append(linkMPI.attrs['href'])
-        else:
-            subMenu = rm.html.find('.sitemap ul.sub-menu li a')
-            for linkMPI in subMenu:
-                linksConfirmados['MPI'].append(linkMPI.attrs['href'])
-        
-        return linksConfirmados
-    except:
-        print(Fore.RED)
-        print('- Não foi possível validar as URLs do projeto\n', Style.RESET_ALL)
+                
+    return linksConfirmados
 
 # Função para validar o W3C da pagina.
 def VerificaW3C(pagina):
@@ -173,11 +218,11 @@ def PageSpeed(link):
             else:
                 mobileScore = int(float(jsonDataM['lighthouseResult']['categories']['performance']['score']) * 100)
                 if mobileScore < 90:
-                    errosEncontrado['PageSpeed'].append(f'=> {pagespeedUrl} - Mobile: {mobileScore}')
+                    errosEncontrado['PageSpeed'].append(f'Mobile - {mobileScore}')
 
                 desktopScore = int(float(jsonDataD['lighthouseResult']['categories']['performance']['score']) * 100)
                 if desktopScore < 90:
-                    errosEncontrado['PageSpeed'].append(f'=> {pagespeedUrl} - Desktop: {desktopScore}')
+                    errosEncontrado['PageSpeed'].append(f'Desktop - {desktopScore}')
 
 
 # Função para validar ALT e TITLE
@@ -365,106 +410,116 @@ def VerificaMPI(pagina, r):
             errosEncontrado['Description atual não foi encontrada no texto MPI'].append(f'=> {pagina}')
 
 # Função para pegar todas as Urls que estão dentro do arquivo sites.txt
-def Urls():  
-    sites = open("sites.txt", "r")
-    linha = sites.readlines()
-    arrayUrl = []
-    for url in linha:
-        arrayUrl.append(url.strip("\n").strip(" "))
-        
-    sites.close()
+def Urls():      
+    with open("sites.txt", "r+") as sites:
+        arrayUrl = []
+        linha = sites.readlines()
+        if len(linha) > 0:
+            for url in linha:
+                arrayUrl.append(url.strip("\n").strip(" "))
+        else:
+            print(Fore.YELLOW)
+            print('Ops! O arquivo "sites.txt" está vazio.\n')
+            getUrl = str(input('Por favor informe as URL\'s separando-as por vírgula:\n'))
+            getUrl = getUrl.strip(",")
+            if len(getUrl) > 0:
+                sites.write(getUrl+'\n')
+                for url in linha:
+                    arrayUrl.append(url.strip("\n").strip(" "))
+            else:
+                arrayUrl.append(getUrl)
     return arrayUrl
 
-# ==================================== Funções =====================================================
+def generateError(url, status):
 
-# url = input(str('URL do site: '))
+    log = False
+    for erro in erroValidacao.keys():
+        if len(erroValidacao[erro]) > 0:
+            log = True
+            break
+    
+    if status:
+        with open(f"projetos/{status}-{url}.txt", "a", -1, "utf-8") as arquivo:
+
+            for errosItens in errosEncontrado.keys():
+                if len(errosEncontrado[errosItens]) > 0:
+                    arquivo.write(f'{errosItens}: \n')
+                    for errosValores in errosEncontrado[errosItens]:
+                        arquivo.write(f'{errosValores} \n')
+                    arquivo.write('\n')
+                    
+            if log:
+                arquivo.write('Funções não executadas nas URL\n=> {}\n'.format(url))
+                for errosItensValidacao in erroValidacao.keys():
+                    if len(erroValidacao[errosItensValidacao]) > 0:
+                        arquivo.write(f'{errosItensValidacao}: \n')
+
+                        for errosValores in erroValidacao[errosItensValidacao]:
+                            arquivo.write(f'{errosValores} \n')
+
+                        arquivo.write('\n')
+    else:        
+        # gera novo arquivo dos sites não validados
+        if len(erroValidacao['Erro ao realizar validação']) > 0:
+            with open(f'projetos/1-lista-nao-validados.txt', 'a', -1, 'utf-8') as arquivo:
+                arquivo.write(f'LISTA DE SITES NÃO VALIDADOS\n')
+                arquivo.write('[{}] \n=> {}\n'.format(date, url))
 
 urls = Urls()
 session = HTMLSession()
 
 for url in urls:
     root = urlBase(url)
-    errosEncontrado = {
-        'W3C':[],
-        'Description com números de caracteres incorretos':[],
-        'Pagina com mais de um H1':[],
-        'O H1 não foi encontrado na description':[],
-        'Links não encontrados do Mapa no site': [],
-        'Menu':[], 
-        'PageSpeed':[],
-        'ALT/TITLE':[],
-        'Scroll':[],
-        'Links duplicados na coluna lateral':[],
-        'Imagens quebradas':[],
-        'H2 iguais a H1':[],
-        'H2 duplicado':[],
-        'Parágrafos duplicados':[],
-        'A descrição não mencionou H1':[],
-        'MPI sem strong':[],
-        'H2 com strong':[],
-        'Elementos vazios na pagina':[],
-        'MPI sem imagens':[],
-        'MPI sem H2':[],
-        'H2 não foi mencionado em H1':[],
-        'Alterar tag P para UL>li':[],
-        'Sequência de UL':[],
-        'Sequência de H2':[],
-        'Description atual não foi encontrada no texto MPI':[],
-        'Palavra chave sem Strong':[]
-        }
+    print(Fore.YELLOW)
+    print('=> {}'.format(url))
+    print(Fore.GREEN)
+    print('Rastreando e categorizando os links...\n', Style.RESET_ALL)
 
-    erroValidacao = {
-        'Função de validação do W3C':[],
-        'Função de validação description e H1':[],
-        'Função de validação Menu header e menu footer':[],
-        'Função de validação PageSpeed':[],
-        'Função de validação Scroll Horizontal':[],
-        'Função de validação ColunaLateral':[],
-        'Função de validação VerificaImagem':[],
-        'Função de validação de MPI':[]
-    }
+    listaDeLinks = PegaLinksDoSite(url)
 
-    try:
+    if listaDeLinks:
         print(Fore.YELLOW)
-        print('=> {}'.format(url))
-        print(Fore.GREEN)
-        print('Rastreando e categorizando os links...\n', Style.RESET_ALL)
-
-        listaDeLinks = PegaLinksDoSite(url)
-
-        if listaDeLinks:
-            print(Fore.YELLOW)
-            print('- Iniciando as validações...\n', Style.RESET_ALL)
-
+        print('- Iniciando as validações...\n', Style.RESET_ALL)
+    def execute(urls):
+        try:
             for pagina in tqdm(listaDeLinks['Todos']):
 
                 r = session.get(pagina)
-                VerificaW3C(pagina)
-                VerificaDescriptionH1(pagina, r)
                 VerificaMapaDoSite(pagina)
-                VerificaAltTitle(pagina, r)
-                VerificaColunaLateral(pagina, r)
+                VerificaDescriptionH1(pagina, r)
                 VerificaImagem(pagina, r)
+                VerificaAltTitle(pagina, r)
+                VerificaW3C(pagina)
 
                 if pagina == url:
                     VerificaMenuHeaderFooter(pagina, r)
                     PageSpeed(pagina)
+
+                if pagina in listaDeLinks['Mapa Site']:
+                    VerificaColunaLateral(pagina, r)
+
                 if pagina in listaDeLinks['MPI']: 
                     VerificaMPI(pagina, r)
+
+        except:
+            print(Fore.RED)
+            print('Não foi possível realizar a validação do projeto\n=> {}'.format(url), Style.RESET_ALL)
+            erroValidacao['Erro ao realizar validação'].append(f'=> {url}')
+            generateError(urlProjetoMpitemporario(url), False)    
+        else:
 
             print(Fore.YELLOW)   
 
             countErrors = 0
-            
             if len(errosEncontrado['W3C']) > 0:
                 print('- Erro(s) de W3C\n=> ( {} )'.format(len(errosEncontrado['W3C'])))
                 countErrors += len(errosEncontrado['W3C'])
 
-            if len(errosEncontrado['Descriptions com números de caracteres incorretos']) > 0:    
+            if len(errosEncontrado['Description com números de caracteres incorretos']) > 0:    
                 print('- Description com números de caracteres incorretos\n=> ( {} )'.format(len(errosEncontrado['Description com números de caracteres incorretos'])))
                 countErrors += len(errosEncontrado['Description com números de caracteres incorretos'])
 
-            if len(errosEncontrado['Paginas com mais de um H1']) > 0: 
+            if len(errosEncontrado['Pagina com mais de um H1']) > 0: 
                 print('- Paginas com mais de um H1\n=> ( {} )'.format(len(errosEncontrado['Pagina com mais de um H1'])))
                 countErrors += len(errosEncontrado['Pagina com mais de um H1'])
 
@@ -548,52 +603,37 @@ for url in urls:
                 print('- Menu diferente do menu footer')
                 countErrors += len(errosEncontrado['Menu'])
 
+            # PageSpeed LOG
             if len(errosEncontrado['PageSpeed']) > 0: 
-                print('- Nota baixa de PageSpeed ', Style.RESET_ALL)
+                print('\n- Notas de PageSpeed baixas\n')
+                for i, elem in enumerate(errosEncontrado['PageSpeed']):
+                    print('=> '+elem)
+                print(Style.RESET_ALL)
 
             if countErrors <= 35:
                 print(Fore.YELLOW)
                 print('Nível: MODERADO', Style.RESET_ALL)
+                nvl = 'MODERADO'
             else:
                 print(Fore.RED)
                 print('Nível: CRÍTICO', Style.RESET_ALL)
+                nvl = 'CRÍTICO'
 
-            log = False
-            for erro in erroValidacao.keys():
-                if len(erroValidacao[erro]) > 0:
-                    log = True
-                    break
+            # gera a lista antes de tudo
+            generateError(urlProjetoMpitemporario(url), nvl)
 
-            arquivo = open(f"projetos/{urlProjetoMpitemporario(url)}.txt", "a", -1, "utf-8")
+            # Limpa memória
+            for values in errosEncontrado:
+                del errosEncontrado[values][:]
 
-            for errosItens in errosEncontrado.keys():
-                if len(errosEncontrado[errosItens]) > 0:
-                    arquivo.write(f'{errosItens}: \n')
+            for values in erroValidacao:
+                del erroValidacao[values][:]
 
-                    for errosValores in errosEncontrado[errosItens]:
-                        arquivo.write(f'{errosValores} \n')
-
-                    arquivo.write('\n')
-                    
-            if log:
-                arquivo.write('LOG DE ERRO DO VALIDADOR | PROJETO\n=> {}'.format(url))
-                for errosItensValidacao in erroValidacao.keys():
-                    if len(erroValidacao[errosItensValidacao]) > 0:
-                        arquivo.write(f'{errosItensValidacao}: \n')
-
-                        for errosValores in erroValidacao[errosItensValidacao]:
-                            arquivo.write(f'{errosValores} \n')
-
-                        arquivo.write('\n')
-
-            arquivo.close()
-            
             print(Fore.GREEN)
-            print('\nValidação do projeto finalizada\n=> {}'.format(url), Style.RESET_ALL)
+            print('\nValidação do projeto finalizada com sucesso!\n=> {}'.format(url), Style.RESET_ALL)
 
-    except:
-        print(Fore.RED)
-        print('Não foi possível realizar a validação do projeto\n=> {}'.format(url), Style.RESET_ALL)
+    execute(urls)
 
-# final 
+# mensagem final 
+print(Fore.GREEN)
 input('\nA validação dos projetos foi finalizada. Aperte a tecla "ENTER" para encerrar\n')

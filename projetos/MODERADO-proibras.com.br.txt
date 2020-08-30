@@ -1,0 +1,49 @@
+W3C: 
+=> http://mpitemporario.com.br/projetos/proibras.com.br/ 
+=> http://mpitemporario.com.br/projetos/proibras.com.br/links 
+=> http://mpitemporario.com.br/projetos/proibras.com.br 
+
+Description com números de caracteres incorretos: 
+=> http://mpitemporario.com.br/projetos/proibras.com.br/brainbox 
+=> http://mpitemporario.com.br/projetos/proibras.com.br/rogue-research 
+
+O H1 não foi encontrado na description: 
+=> http://mpitemporario.com.br/projetos/proibras.com.br 
+
+Links não encontrados do Mapa no site: 
+=> http://mpitemporario.com.br/projetos/proibras.com.br/carrinho 
+=> http://mpitemporario.com.br/projetos/proibras.com.br 
+=> http://mpitemporario.com.br/projetos/proibras.com.br/eventos/17-a-19-de-outubro-de-2019-goiania-go 
+=> http://mpitemporario.com.br/projetos/proibras.com.br/eventos/16-e-17-de-agosto-sao-paulo 
+=> http://mpitemporario.com.br/projetos/proibras.com.br/eventos/14-e-17-agosto-sao-paulo 
+=> http://mpitemporario.com.br/projetos/proibras.com.br/eventos/16-e-17-de-agosto-2019-sao-paulo 
+
+PageSpeed: 
+Mobile - 77 
+Desktop - 80 
+Mobile - 71 
+Mobile - 62 
+Mobile - 59 
+
+ALT/TITLE: 
+=>  http://mpitemporario.com.br/projetos/proibras.com.br/produtos/doppler-transcraniano/multi-dop-x-digital - href='https://www.dwl.de/us/applications/' Link sem TITLE 
+=>  http://mpitemporario.com.br/projetos/proibras.com.br/produtos/neuromodulacao-transcraniana-focalizada-por-ultrassom-tfus/neurofus-pro - href='https://brainbox-neuro.com/products/duomag-mp' Link sem TITLE 
+=>  http://mpitemporario.com.br/projetos/proibras.com.br/produtos/neuromodulacao-transcraniana-focalizada-por-ultrassom-tfus/neurofus-pro - href='https://brainbox-neuro.com/products/duomag-mp-dual' Link sem TITLE 
+=>  http://mpitemporario.com.br/projetos/proibras.com.br/produtos/neuromodulacao-transcraniana-focalizada-por-ultrassom-tfus/neurofus-pro - href='https://brainbox-neuro.com/products/elevatetms' Link sem TITLE 
+=>  http://mpitemporario.com.br/projetos/proibras.com.br/produtos/neuromodulacao-transcraniana-focalizada-por-ultrassom-tfus/neurofus-pro - href='https://brainbox-neuro.com/products/truscan-re' Link sem TITLE 
+=>  http://mpitemporario.com.br/projetos/proibras.com.br/produtos/neuromodulacao-transcraniana-focalizada-por-ultrassom-tfus/neurofus-pro - href='https://brainbox-neuro.com/products/brainsight-nirs' Link sem TITLE 
+=>  http://mpitemporario.com.br/projetos/proibras.com.br/produtos/neuromodulacao-transcraniana-focalizada-por-ultrassom-tfus/neurofus-pro - href='https://brainbox-neuro.com/products/brainsight-tms-navigation' Link sem TITLE 
+
+Imagens quebradas: 
+=> http://mpitemporario.com.br/projetos/proibras.com.br/produtos/eye-tracking/d-lab-data-stream: http://www.proibras.com.br/admin/assets/audio.png 
+=> http://mpitemporario.com.br/projetos/proibras.com.br/produtos/eye-tracking/d-lab-data-stream: http://www.proibras.com.br/admin/assets/canbus.png 
+=> http://mpitemporario.com.br/projetos/proibras.com.br/produtos/eye-tracking/d-lab-data-stream: http://www.proibras.com.br/admin/assets/datastream.png 
+=> http://mpitemporario.com.br/projetos/proibras.com.br/produtos/eye-tracking/d-lab-data-stream: http://www.proibras.com.br/admin/assets/eyetracking.png 
+=> http://mpitemporario.com.br/projetos/proibras.com.br/produtos/eye-tracking/d-lab-data-stream: http://www.proibras.com.br/admin/assets/headtracking.png 
+=> http://mpitemporario.com.br/projetos/proibras.com.br/produtos/eye-tracking/d-lab-data-stream: http://www.proibras.com.br/admin/assets/physiology.png 
+=> http://mpitemporario.com.br/projetos/proibras.com.br/produtos/eye-tracking/d-lab-data-stream: http://www.proibras.com.br/admin/assets/video.png 
+=> http://mpitemporario.com.br/projetos/proibras.com.br/produtos/eye-tracking/d-lab-data-stream: http://www.proibras.com.br/admin/assets/overview.png 
+
+Description atual não foi encontrada no texto MPI: 
+=> http://mpitemporario.com.br/projetos/proibras.com.br/doppler-transcraniano 
+
