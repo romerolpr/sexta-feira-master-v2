@@ -706,7 +706,7 @@ try:
                         print(Fore.GREEN)
                         print('Status: Aprovado de 1º', Style.RESET_ALL)
 
-                    if countErrors <= 35:
+                    if countErrors < 40:
                         print(Fore.YELLOW)
                         print('Status: MODERADO', Style.RESET_ALL)
                         nvl = 'MODERADO'
