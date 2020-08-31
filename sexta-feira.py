@@ -590,7 +590,10 @@ try:
                     print(Fore.RED)
                     print('Não foi possível realizar a validação do projeto\n=> {}'.format(url), Style.RESET_ALL)
                     erroValidacao['Erro ao realizar validação'].append(f'=> {url}')
-                    generateError(urlProjetoMpitemporario(url), False)    
+                    if len(errosEncontrado) > 0: 
+                        generateError(urlProjetoMpitemporario(url), 'ERRO')    
+                    else:
+                        generateError(urlProjetoMpitemporario(url), False)    
                 else:
 
                     print(Fore.YELLOW)   
@@ -697,13 +700,17 @@ try:
                                 print('MPI\n')
                         print(Style.RESET_ALL)
 
+                    if countErrors == 0:
+                        print(Fore.GREEN)
+                        print('Status: Aprovado de 1º', Style.RESET_ALL)
+
                     if countErrors <= 35:
                         print(Fore.YELLOW)
-                        print('Nível: MODERADO', Style.RESET_ALL)
+                        print('Status: MODERADO', Style.RESET_ALL)
                         nvl = 'MODERADO'
                     else:
                         print(Fore.RED)
-                        print('Nível: CRÍTICO', Style.RESET_ALL)
+                        print('Status: CRÍTICO', Style.RESET_ALL)
                         nvl = 'CRÍTICO'
 
                     # gera a lista antes de tudo
