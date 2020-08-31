@@ -424,13 +424,15 @@ def VerificaMPI(pagina, r):
         msmString = []
         for p in allParagraphs:
             descriptionErro = False if description.replace("  ", " ")[:-35].lower() in p.text.lower() else True
-            
             if not descriptionErro:
                 descriptionNoTexto += 1
 
-            pListErro = False if p.text[-1] != ";" else True
-            if pListErro:
-                pListErroCont += 1
+            try:
+                pListErro = False if p.text[:-1] != ";" else True
+                if pListErro:
+                    pListErroCont += 1
+            except:
+                erroValidacao['Função de validação de MPI'].append(f'=> {pagina}')
 
             if len(strongsInArticle) > 3:
                 strong = True if p.find('strong') else False
@@ -557,7 +559,7 @@ try:
             print(Fore.YELLOW)
             print('=> {}'.format(url))
             print(Fore.GREEN)
-            print('Rastreando e categorizando os links...\n', Style.RESET_ALL)
+            print('Rastreando e categorizando os links... Aguarde\n', Style.RESET_ALL)
 
             listaDeLinks = PegaLinksDoSite(url)
 
