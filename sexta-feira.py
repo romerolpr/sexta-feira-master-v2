@@ -490,7 +490,7 @@ def generateError(url, status):
 
     def writeProjects(url, status):
         # abre arquivo e escreve
-        with open(f"projetos/{status}-{url}.txt", "a", -1, "utf-8") as arquivo:
+        with open(f"projetos/validados/{status}-{url}.txt", "a", -1, "utf-8") as arquivo:
 
             for errosItens in errosEncontrado.keys():
                 if len(errosEncontrado[errosItens]) > 0:
@@ -519,7 +519,7 @@ def generateError(url, status):
         # verifica se existe pasta projetos
         if not os.path.exists('projetos'):
             try:
-                os.makedirs('projetos')
+                os.makedirs('projetos/validados/')
                 writeProjects(url, status)
             except OSError:
                 print(Fore.RED)
