@@ -69,6 +69,7 @@ def php_mask(c, i):
 		if i == True:
 			mask = re.sub('!!!PHP!!!', php_remove, soup.prettify())
 		else:
+			del php_elements[0]
 			mask = re.sub('!!!PHP!!!', php_add, soup.prettify())
 
 	except:
@@ -88,15 +89,14 @@ def create(body, file):
 
 	    # faz a criacao dos arquivos
 		with open(f'./ajustar/projetos/{arquivo}' + '.php', 'a', encoding='utf8') as f:
-			f.write(php_mask(body, False))
+			f.write(body)
 	except: 
 	    Error['Não foi possível criar o arquivo'].append(f'=> {file}.php')
 
 # faz o ajuste nos strongs do projeto
 def fix_strong(title, c):
 	newContent = []
-	body = php_mask(c, True)
-	soup = BeautifulSoup(body, "html.parser")
+	soup = BeautifulSoup(c, "html.parser")
 	paragraph = soup.find_all('p')
 
 	# realiza os ajustes
@@ -123,6 +123,8 @@ print('Iniciando correções... Aguarde\n', Style.RESET_ALL)
 try:
 	for a in tqdm(f):
 
+		del php_elements[:]
+
 		r = session.get(urlReplace(htdocs, a))
 		# constroi o arquivo
 		html = file_read(htdocs + a.strip())
@@ -135,15 +137,15 @@ try:
 			Error['Não foi possível recuperar o título da página'].append(f'=> {urlReplace(htdocs, a)}')
 		else:
 			try:
-				#del php_elements[:]
 				# Após receber todos os valores com sucesso, realiza os ajustes e retira a máscara do código
 				body = fix_strong(title, php_mask(html, True))
 			except:
 				Error['Não foi possível realizar o ajustes no(s) arquivo(s)'].append(f'=> {a}.php')
 			else:
 				# tudo certo, gera o arquivo
-				#create(body, a)
-				print(php_elements)
+				create(php_mask(body, False), a)
+
+				# print(body)
 		
 except:
 	print(Fore.RED)
