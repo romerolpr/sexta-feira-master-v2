@@ -11,8 +11,8 @@ htdocs = f'E://xampp/htdocs/{projeto}/' # alterar para htdocs proprio
 
 # inserir os arquivos para serem editados (sem .php)
 f = [
-	'esquadria-pvc-imitando-madeira',
-	# 'esquadrias-pvc-campos-do-jordao',
+	# 'esquadria-pvc-imitando-madeira',
+	'esquadrias-pvc-campos-do-jordao',
 	# 'esquadrias-pvc-atibaia',
 	# 'esquadrias-pvc-braganca-paulista',
 	# 'esquadrias-aluminio-vinhedo',
@@ -25,18 +25,19 @@ f = [
 	# 'janelas-pvc-medida'
 ]
 
+Error = { 'Não foi possível ler o(s) arquivo(s)':[],'Não foi possível criar o arquivo':[],'Não foi possível realizar o ajustes no(s) arquivo(s)':[],'Não foi possível recuperar o título da página':[] }
+
 # le arquivo e recupera valores
 def file_read(f):
-	import os.path
 	content = []
+	import os.path
 	try:
 		with open(f + '.php', 'r', encoding='utf8') as file:
 			lines = file.readlines()
 			for elem in lines:
 				content.append(elem)
 				# string converter
-				value = ''.join(str(e) for e in content)
-			return value
+			return ''.join(map(str, content))
 	except IOError:
 		return False	
 		Error['Não foi possível ler o(s) arquivo(s)'].append(f'=> {f}.php')
@@ -45,37 +46,32 @@ def file_read(f):
 def urlReplace(x, y):
 	x = x.split('//')
 	r = x[1].split('/')
-	URL = 'http://mpitemporario.com.br/projetos/' + r[2] + '/' + y
-	return URL
+	return 'http://mpitemporario.com.br/projetos/' + r[2] + '/' + y
 
 # variáveis para mascara
-php_elements = []
+elements = []
+msk = '!!!PHP!!!'
 
 # funções pra fazer a remoção
-def php_remove(c):
-    php_elements.append(c.group())
-    return '!!!PHP!!!'
-def php_add(c):
-    return php_elements.pop(0)
+def remove(c):
+    elements.append(c.group())
+    return msk
+def add(c):
+    return elements.pop(0)
 
 # funcao para aplicar/ retirar mascara no codigo
-def php_mask(c, i):
+def mask(c, i):
 	import re
 	try:
-
-		m = re.sub(r'<\?.*?\?>', php_remove, c, flags=re.S+re.M)
+		# aplica a mascara
+		m = re.sub(r"<\?.*\?>|<\?php^\s.*\?>", remove, c)
 		soup = BeautifulSoup(m, "html.parser")
-
 		if i == True:
-			mask = re.sub('!!!PHP!!!', php_remove, soup.prettify())
+			mask = re.sub(msk, remove, soup.prettify())
 		else:
-			del php_elements[0]
-			mask = re.sub('!!!PHP!!!', php_add, soup.prettify())
-
+			mask = re.sub(msk, add, soup.prettify())
 	except:
 		return False
-	else:
-		return mask.strip()
 
 # cria o arquivo
 def create(body, file):
@@ -94,27 +90,28 @@ def create(body, file):
 	    Error['Não foi possível criar o arquivo'].append(f'=> {file}.php')
 
 # faz o ajuste nos strongs do projeto
-def fix_strong(title, c):
-	newContent = []
-	soup = BeautifulSoup(c, "html.parser")
-	paragraph = soup.find_all('p')
+def fix_strong(t, html):
+	# armazenando elementos
+	content = []
+	try:
+		# criando o soup em html
+		soup = BeautifulSoup(mask(html, True), "html5lib")
+		# tenta rodar os ajustes
+		for p in soup.find_all('p'):
+			child = p.findChildren("strong", recursive=True)
+			for strong in child:
 
-	# realiza os ajustes
-	for p in paragraph:
-		strong = p.findChildren("strong", recursive=True)
-		for child in strong:
-			pstrong = child.text.lower()
-			if title.lower() not in pstrong:
-				child.string = title.lower().strip()
-	for elem in soup:
-		newContent.append(elem)
-	# string converter
-	value = ''.join(str(e) for e in elem)
+				# ajusta quais não estão corretas
+				if t.strip().lower() not in strong.string.lower():
+					strong.string = t.strip().lower()
 
-	# retorna os valores
-	return value.strip()
+		# retorna novo código
+		for elem in soup.prettify():
+			content.append(elem)
+		return ''.join(map(str, content))
 
-Error = { 'Não foi possível ler o(s) arquivo(s)':[],'Não foi possível criar o arquivo':[],'Não foi possível realizar o ajustes no(s) arquivo(s)':[],'Não foi possível recuperar o título da página':[] }
+	except:
+		return False
 
 
 # Inicia função principal para executar as correções
@@ -122,8 +119,6 @@ print(Fore.YELLOW)
 print('Iniciando correções... Aguarde\n', Style.RESET_ALL)
 try:
 	for a in tqdm(f):
-
-		del php_elements[:]
 
 		r = session.get(urlReplace(htdocs, a))
 		# constroi o arquivo
@@ -137,15 +132,23 @@ try:
 			Error['Não foi possível recuperar o título da página'].append(f'=> {urlReplace(htdocs, a)}')
 		else:
 			try:
+				
 				# Após receber todos os valores com sucesso, realiza os ajustes e retira a máscara do código
-				body = fix_strong(title, php_mask(html, True))
+				body = fix_strong(title, html)
+
+				# tudo certo, gera o arquivo
+				if body != False:
+					# create(php_mask(body, False), a)
+					print(body)
+				else:
+					print(Fore, RED)
+					print('Falha na execução do strong.')
+
+				# limpa cache
+				del php_elements[:]
+
 			except:
 				Error['Não foi possível realizar o ajustes no(s) arquivo(s)'].append(f'=> {a}.php')
-			else:
-				# tudo certo, gera o arquivo
-				create(php_mask(body, False), a)
-
-				# print(body)
 		
 except:
 	print(Fore.RED)
