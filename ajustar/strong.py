@@ -11,8 +11,9 @@ htdocs = f'E://xampp/htdocs/{projeto}/' # alterar para htdocs proprio
 
 # inserir os arquivos para serem editados (sem .php)
 f = [
+	# 'palavra-chave-teste',
 	# 'esquadria-pvc-imitando-madeira',
-	'esquadrias-pvc-campos-do-jordao',
+	# 'esquadrias-pvc-campos-do-jordao',
 	# 'esquadrias-pvc-atibaia',
 	# 'esquadrias-pvc-braganca-paulista',
 	# 'esquadrias-aluminio-vinhedo',
@@ -22,7 +23,7 @@ f = [
 	# 'fabrica-portas-pvc',
 	# 'janela-maxim-ar-pvc-preco',
 	# 'janelas-pvc-acustica',
-	# 'janelas-pvc-medida'
+	'janelas-pvc-medida'
 ]
 
 Error = { 'Não foi possível ler o(s) arquivo(s)':[],'Não foi possível criar o arquivo':[],'Não foi possível realizar o ajustes no(s) arquivo(s)':[],'Não foi possível recuperar o título da página':[] }
@@ -48,30 +49,34 @@ def urlReplace(x, y):
 	r = x[1].split('/')
 	return 'http://mpitemporario.com.br/projetos/' + r[2] + '/' + y
 
+
 # variáveis para mascara
 elements = []
 msk = '!!!PHP!!!'
 
 # funções pra fazer a remoção
-def remove(c):
-    elements.append(c.group())
+def remove(d):
+    elements.append(d.group())
     return msk
-def add(c):
+def add(e):
     return elements.pop(0)
 
 # funcao para aplicar/ retirar mascara no codigo
 def mask(c, i):
 	import re
 	try:
+
 		# aplica a mascara
-		m = re.sub(r"<\?.*\?>|<\?php^\s.*\?>", remove, c)
+		m = re.sub(r"<\?.*\?>", remove, c)
 		soup = BeautifulSoup(m, "html.parser")
 		if i == True:
 			mask = re.sub(msk, remove, soup.prettify())
 		else:
 			mask = re.sub(msk, add, soup.prettify())
 	except:
-		return False
+		mask = False
+
+	return mask
 
 # cria o arquivo
 def create(body, file):
@@ -86,6 +91,7 @@ def create(body, file):
 	    # faz a criacao dos arquivos
 		with open(f'./ajustar/projetos/{arquivo}' + '.php', 'a', encoding='utf8') as f:
 			f.write(body)
+			f.write('</html>')
 	except: 
 	    Error['Não foi possível criar o arquivo'].append(f'=> {file}.php')
 
@@ -94,8 +100,10 @@ def fix_strong(t, html):
 	# armazenando elementos
 	content = []
 	try:
+
 		# criando o soup em html
-		soup = BeautifulSoup(mask(html, True), "html5lib")
+		soup = BeautifulSoup(mask(html, True), "html.parser")
+
 		# tenta rodar os ajustes
 		for p in soup.find_all('p'):
 			child = p.findChildren("strong", recursive=True)
@@ -108,7 +116,9 @@ def fix_strong(t, html):
 		# retorna novo código
 		for elem in soup.prettify():
 			content.append(elem)
-		return ''.join(map(str, content))
+		value = ''.join(map(str, content))
+
+		return mask(value, False)
 
 	except:
 		return False
@@ -138,17 +148,16 @@ try:
 
 				# tudo certo, gera o arquivo
 				if body != False:
-					# create(php_mask(body, False), a)
-					print(body)
+					create(body, a)
+					# print(body)
 				else:
 					print(Fore, RED)
 					print('Falha na execução do strong.')
 
-				# limpa cache
-				del php_elements[:]
-
 			except:
 				Error['Não foi possível realizar o ajustes no(s) arquivo(s)'].append(f'=> {a}.php')
+
+			del elements[:]
 		
 except:
 	print(Fore.RED)
