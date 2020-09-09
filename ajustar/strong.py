@@ -6,24 +6,12 @@ from colorama import Fore, Style
 session = HTMLSession()
 
 # variáveis do projeto
-projeto = 'romapvc.com.br'
-htdocs = f'E://xampp/htdocs/{projeto}/' # alterar para htdocs proprio
+projeto = 'maxartefatos.com.br'
+htdocs = f'C://xampp/htdocs/{projeto}/' # alterar para htdocs proprio
 
 # inserir os arquivos para serem editados (sem .php)
 f = [
-	# 'palavra-chave-teste',
-	# 'esquadria-pvc-imitando-madeira',
-	# 'esquadrias-pvc-campos-do-jordao',
-	# 'esquadrias-pvc-atibaia',
-	# 'esquadrias-pvc-braganca-paulista',
-	# 'esquadrias-aluminio-vinhedo',
-	# 'esquadrias-pvc-valinhos',
-	# 'esquadrias-pvc-preco',
-	# 'fabrica-esquadrias-pvc',
-	# 'fabrica-portas-pvc',
-	# 'janela-maxim-ar-pvc-preco',
-	# 'janelas-pvc-acustica',
-	'janelas-pvc-medida'
+	'ARQUIVOS DO PROJETO AQUI'
 ]
 
 Error = { 'Não foi possível ler o(s) arquivo(s)':[],'Não foi possível criar o arquivo':[],'Não foi possível realizar o ajustes no(s) arquivo(s)':[],'Não foi possível recuperar o título da página':[] }
@@ -86,10 +74,10 @@ def create(body, file):
 	try:
 
 		# faz a criacao da pasta
-		Path(f'./ajustar/projetos/{projeto}').mkdir(parents=True, exist_ok=True)
+		Path(f'./projetos/{projeto}').mkdir(parents=True, exist_ok=True)
 
 	    # faz a criacao dos arquivos
-		with open(f'./ajustar/projetos/{arquivo}' + '.php', 'a', encoding='utf8') as f:
+		with open(f'./projetos/{arquivo}' + '.php', 'a', encoding='utf8') as f:
 			f.write(body)
 			f.write('</html>')
 	except: 
@@ -103,15 +91,15 @@ def fix_strong(t, html):
 
 		# criando o soup em html
 		soup = BeautifulSoup(mask(html, True), "html.parser")
-
+		title = t.strip().lower()
 		# tenta rodar os ajustes
 		for p in soup.find_all('p'):
 			child = p.findChildren("strong", recursive=True)
 			for strong in child:
 
 				# ajusta quais não estão corretas
-				if t.strip().lower() not in strong.string.lower():
-					strong.string = t.strip().lower()
+				if title not in strong.string.lower():
+					strong.string = title
 
 		# retorna novo código
 		for elem in soup.prettify():
