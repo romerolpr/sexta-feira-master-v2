@@ -101,7 +101,7 @@ def fix_strong(t, html):
 		# criando o soup em html
 		soup = BeautifulSoup(mask(html, True), "html.parser")
 		title = t.strip()
-		
+
 		# tenta rodar os ajustes
 		for p in soup.find_all('p'):
 
@@ -133,7 +133,7 @@ def fix_strong(t, html):
 					p.string = r
 
 				else:
-					Error['Não foi possível inserir strong no parágrafo'].append(t)	
+					Error['Não foi possível inserir strong no parágrafo'].append(p.string)	
 
 		# retorna novo código
 		for elem in soup.prettify(formatter=None):
