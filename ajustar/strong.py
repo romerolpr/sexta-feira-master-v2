@@ -6,27 +6,23 @@ from colorama import Fore, Style
 session = HTMLSession()
 
 # variáveis do projeto
-projeto = 'romapvc.com.br'
+projeto = 'maxartefatos.com.br'
 htdocs = f'E://xampp/htdocs/{projeto}/' # alterar para htdocs proprio
 
 # inserir os arquivos para serem editados (sem .php)
 f = [
-	# 'palavra-chave-teste',
-	# 'esquadria-pvc-imitando-madeira',
-	# 'esquadrias-pvc-campos-do-jordao',
-	# 'esquadrias-pvc-atibaia',
-	# 'esquadrias-pvc-braganca-paulista',
-	# 'esquadrias-aluminio-vinhedo',
-	# 'esquadrias-pvc-valinhos',
-	# 'esquadrias-pvc-preco',
-	# 'fabrica-esquadrias-pvc',
-	# 'fabrica-portas-pvc',
-	# 'janela-maxim-ar-pvc-preco',
-	# 'janelas-pvc-acustica',
-	'janelas-pvc-medida'
+	'artefatos-concreto-preco', 
+	'artefatos-concreto-ribeirao-preto',
+	'artefatos-concreto',
+	'bloquete-cimento-intertravado-preco',
+	'bloquete-cimento-preco',
+	'bloquete-cimento-valor', 
+	'bloquete-cimento',
+	'bloquete-concreto-preco',
+	'bloquete-concreto-valor',
 ]
 
-Error = { 'Não foi possível ler o(s) arquivo(s)':[],'Não foi possível criar o arquivo':[],'Não foi possível realizar o ajustes no(s) arquivo(s)':[],'Não foi possível recuperar o título da página':[] }
+Error = { 'Não foi possível ler o(s) arquivo(s)':[],'Não foi possível criar o arquivo':[],'Não foi possível realizar o ajustes no(s) arquivo(s)':[],'Não foi possível recuperar o título da página':[], 'Não foi possível inserir strong no parágrafo': [] }
 
 # le arquivo e recupera valores
 def file_read(f):
@@ -97,24 +93,48 @@ def create(body, file):
 
 # faz o ajuste nos strongs do projeto
 def fix_strong(t, html):
+	import re
 	# armazenando elementos
 	content = []
 	try:
 
 		# criando o soup em html
 		soup = BeautifulSoup(mask(html, True), "html.parser")
-
+		title = t.strip()
 		# tenta rodar os ajustes
 		for p in soup.find_all('p'):
 			child = p.findChildren("strong", recursive=True)
-			for strong in child:
 
-				# ajusta quais não estão corretas
-				if t.strip().lower() not in strong.string.lower():
-					strong.string = t.strip().lower()
+			# verifica se o paragrafo tem strong
+			if child:
+				for strong in child:
+					# ajusta quais não estão corretas
+					if title.lower() != strong.string.lower():
+						strong.string = title.lower()
+			else:
+				
+				# se nao tiver, localiza onde deveria e insere
+				if p.string.count(title.upper()) > 0:
+					r = p.string.replace(title.upper(), '<strong>'+title.lower()+'</strong>')
+					p.string = r
+
+				elif p.string.count(title.capitalize()) > 0:
+					r = p.string.replace(title.capitalize(), '<strong>'+title.lower()+'</strong>')
+					p.string = r
+
+				elif p.string.count(title.lower()) > 0:
+					r = p.string.replace(title.lower(), '<strong>'+title.lower()+'</strong>')
+					p.string = r
+
+				elif p.string.count(title.title()) > 0:
+					r = p.string.replace(title.title(), '<strong>'+title.lower()+'</strong>')
+					p.string = r
+
+				else:
+					Error['Não foi possível inserir strong no parágrafo'].append(t)
 
 		# retorna novo código
-		for elem in soup.prettify():
+		for elem in soup.prettify(formatter=None):
 			content.append(elem)
 		value = ''.join(map(str, content))
 
@@ -174,7 +194,7 @@ for errosItens in Error.keys():
         print('\n')
     else:
     	print(Fore.GREEN)
-    	print('Todas as correções foram finalizadas com sucesso!')	
+    	print('Ajustes realizados com sucesso!')	
     	break
 
 print(Style.RESET_ALL)
