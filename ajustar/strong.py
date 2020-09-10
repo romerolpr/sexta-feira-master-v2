@@ -6,23 +6,70 @@ from colorama import Fore, Style
 session = HTMLSession()
 
 # variáveis do projeto
-projeto = 'maxartefatos.com.br'
-htdocs = f'E://xampp/htdocs/{projeto}/' # alterar para htdocs proprio
+projeto = 'fluxoambiental.com.br'
+htdocs = f'C://xampp/htdocs/{projeto}/' # alterar para htdocs proprio
 
 # inserir os arquivos para serem editados (sem .php)
 f = [
-	'artefatos-concreto-preco', 
-	'artefatos-concreto-ribeirao-preto',
-	'artefatos-concreto',
-	# 'bloquete-cimento-intertravado-preco',
-	# 'bloquete-cimento-preco',
-	# 'bloquete-cimento-valor', 
-	# 'bloquete-cimento',
-	# 'bloquete-concreto-preco',
-	# 'bloquete-concreto-valor',
+	'aproveitamento-agua-chuva-preco',
+	'custo-ete-compacta',
+	# 'empresa-aproveitamento-agua-chuva',
+	# 'empresa-estacao-tratamento-agua',
+	# 'empresa-ete',
+	# 'estacao-compacta-tratamento-efluentes-sanitarios',
+	# 'estacao-tratamento-biologico-efluentes-sanitarios-industriais',
+	# 'estacao-tratamento-agua',
+	# 'estacao-tratamento-agua-cinza',
+	# 'estacao-tratamento-agua-compacta',
+	# 'estacao-tratamento-agua-chuva',
+	# 'estacao-tratamento-agua-reuso',
+	# 'estacao-tratamento-agua-esgoto',
+	# 'estacao-tratamento-agua-eta-compacta',
+	# 'estacao-tratamento-agua-industrial',
+	# 'estacao-tratamento-agua-escola',
+	# 'estacao-tratamento-agua-abastecimento',
+	# 'estacao-tratamento-aguas-residuais-industriais',
+	# 'estacao-tratamento-efluentes-sanitarios',
+	# 'estacao-tratamento-esgoto',
+	# 'estacao-tratamento-esgoto-compacta',
+	# 'estacao-tratamento-esgoto-compacta-preco',
+	# 'estacao-tratamento-esgoto-comprar',
+	# 'estacao-tratamento-esgoto-convencional',
+	# 'estacao-tratamento-esgoto-domiciliar',
+	# 'estacao-tratamento-esgoto-condominios',
+	# 'estacao-tratamento-esgoto-individual',
+	# 'estacao-tratamento-esgoto-preco',
+	# 'estacao-tratamento-esgoto-projeto',
+	# 'estacao-tratamento-esgoto-residencial',
+	# 'eta-compacta-modular',
+	# 'eta-compacta-preco',
+	# 'eta-convencional-compacta',
+	# 'eta-estacao-tratamento-da-agua',
+	# 'ete-compacta-fibra',
+	# 'ete-compacta-fabricante',
+	# 'ete-compacta-industrial',
+	# 'ete-compacta-modular',
+	# 'ete-compacta-preco',
+	# 'ete-compacta-valor',
+	# 'ete-estacao-tratamento-efluentes',
+	# 'ete-estacao-tratamento-esgoto',
+	# 'ete-estacao-tratamento-esgoto-compacta',
+	# 'fabricantes-ete-compacta',
+	# 'preco-ete-compacta',
+	# 'reuso-aguas-cinzas-edificacoes',
+	# 'reuso-aguas-cinzas-irrigacao',
+	# 'sistema-esgoto-condominial',
+	# 'sistema-esgoto-condominial-convencional',
+	# 'sistema-tratamento-efluentes-sanitarios',
+	# 'sistemas-simples-tratamento-esgotos-sanitarios',
+	# 'tratamento-biologico-efluentes',
+	# 'tratamento-biologico-efluentes-domesticos',
+	# 'tratamento-efluente-sanitario-areas-rurais',
+	# 'tratamento-efluentes-fisico-quimico-biologico',
+	# 'tratamento-efluentes-hospitalares',
 ]
 
-Error = { 'Não foi possível ler o(s) arquivo(s)':[],'Não foi possível criar o arquivo':[],'Não foi possível realizar o ajustes no(s) arquivo(s)':[],'Não foi possível recuperar o título da página':[], 'Não foi possível inserir strong no parágrafo': [] }
+Error = { 'Não foi possível ler o(s) arquivo(s)':[],'Não foi possível criar o arquivo':[],'Não foi possível realizar o ajustes no(s) arquivo(s)':[],'Não foi possível recuperar o título da página':[], 'Não foi possível inserir strong no parágrafo do arquivo': [] }
 
 # le arquivo e recupera valores
 def file_read(f):
@@ -92,7 +139,7 @@ def create(body, file):
 	    Error['Não foi possível criar o arquivo'].append(f'=> {file}.php')
 
 # faz o ajuste nos strongs do projeto
-def fix_strong(t, html):
+def fix_strong(t, html, a):
 	import re
 	# armazenando elementos
 	content = []
@@ -103,9 +150,10 @@ def fix_strong(t, html):
 		title = t.strip()
 
 		# tenta rodar os ajustes
-		for p in soup.find_all('p'):
 
-			child = p.findChildren("strong", recursive=True)
+		for p in soup.select('article > p'):
+
+			child = p.find_all('strong')
 
 			# verifica se o paragrafo tem strong
 			if child:
@@ -131,9 +179,9 @@ def fix_strong(t, html):
 				elif p.string.count(title.title()) > 0:
 					r = p.string.replace(title.title(), '<strong>'+title.lower()+'</strong>')
 					p.string = r
-
 				else:
-					Error['Não foi possível inserir strong no parágrafo'].append(p.string)	
+					Error['Não foi possível inserir strong no parágrafo do arquivo'].append(f'\n=> {a}')	
+
 
 		# retorna novo código
 		for elem in soup.prettify(formatter=None):
@@ -166,7 +214,7 @@ try:
 			try:
 				
 				# Após receber todos os valores com sucesso, realiza os ajustes e retira a máscara do código
-				body = fix_strong(title, html)
+				body = fix_strong(title, html, a)
 
 				# tudo certo, gera o arquivo
 				if body != False:
