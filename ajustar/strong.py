@@ -14,12 +14,12 @@ f = [
 	'artefatos-concreto-preco', 
 	'artefatos-concreto-ribeirao-preto',
 	'artefatos-concreto',
-	'bloquete-cimento-intertravado-preco',
-	'bloquete-cimento-preco',
-	'bloquete-cimento-valor', 
-	'bloquete-cimento',
-	'bloquete-concreto-preco',
-	'bloquete-concreto-valor',
+	# 'bloquete-cimento-intertravado-preco',
+	# 'bloquete-cimento-preco',
+	# 'bloquete-cimento-valor', 
+	# 'bloquete-cimento',
+	# 'bloquete-concreto-preco',
+	# 'bloquete-concreto-valor',
 ]
 
 Error = { 'Não foi possível ler o(s) arquivo(s)':[],'Não foi possível criar o arquivo':[],'Não foi possível realizar o ajustes no(s) arquivo(s)':[],'Não foi possível recuperar o título da página':[], 'Não foi possível inserir strong no parágrafo': [] }
@@ -82,10 +82,10 @@ def create(body, file):
 	try:
 
 		# faz a criacao da pasta
-		Path(f'./ajustar/projetos/{projeto}').mkdir(parents=True, exist_ok=True)
+		Path(f'./projetos/{projeto}').mkdir(parents=True, exist_ok=True)
 
 	    # faz a criacao dos arquivos
-		with open(f'./ajustar/projetos/{arquivo}' + '.php', 'a', encoding='utf8') as f:
+		with open(f'./projetos/{arquivo}' + '.php', 'a', encoding='utf8') as f:
 			f.write(body)
 			f.write('</html>')
 	except: 
@@ -101,8 +101,10 @@ def fix_strong(t, html):
 		# criando o soup em html
 		soup = BeautifulSoup(mask(html, True), "html.parser")
 		title = t.strip()
+		
 		# tenta rodar os ajustes
 		for p in soup.find_all('p'):
+
 			child = p.findChildren("strong", recursive=True)
 
 			# verifica se o paragrafo tem strong
@@ -131,7 +133,7 @@ def fix_strong(t, html):
 					p.string = r
 
 				else:
-					Error['Não foi possível inserir strong no parágrafo'].append(t)
+					Error['Não foi possível inserir strong no parágrafo'].append(t)	
 
 		# retorna novo código
 		for elem in soup.prettify(formatter=None):
