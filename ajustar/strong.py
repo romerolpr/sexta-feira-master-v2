@@ -155,8 +155,8 @@ try:
 
 				# tudo certo, gera o arquivo
 				if body != False:
-					# create(body, a)
-					print(body)
+					create(body, a)
+					# print(body)
 				else:
 					print(Fore, RED)
 					print('Falha na execução do strong.')
