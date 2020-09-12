@@ -6,67 +6,13 @@ from colorama import Fore, Style
 session = HTMLSession()
 
 # variáveis do projeto
-projeto = 'fluxoambiental.com.br'
-htdocs = f'C://xampp/htdocs/{projeto}/' # alterar para htdocs proprio
+projeto = 'romapvc.com.br'
+htdocs = f'E://xampp/htdocs/{projeto}/' # alterar para htdocs proprio
 
 # inserir os arquivos para serem editados (sem .php)
 f = [
-	'aproveitamento-agua-chuva-preco',
-	'custo-ete-compacta',
-	# 'empresa-aproveitamento-agua-chuva',
-	# 'empresa-estacao-tratamento-agua',
-	# 'empresa-ete',
-	# 'estacao-compacta-tratamento-efluentes-sanitarios',
-	# 'estacao-tratamento-biologico-efluentes-sanitarios-industriais',
-	# 'estacao-tratamento-agua',
-	# 'estacao-tratamento-agua-cinza',
-	# 'estacao-tratamento-agua-compacta',
-	# 'estacao-tratamento-agua-chuva',
-	# 'estacao-tratamento-agua-reuso',
-	# 'estacao-tratamento-agua-esgoto',
-	# 'estacao-tratamento-agua-eta-compacta',
-	# 'estacao-tratamento-agua-industrial',
-	# 'estacao-tratamento-agua-escola',
-	# 'estacao-tratamento-agua-abastecimento',
-	# 'estacao-tratamento-aguas-residuais-industriais',
-	# 'estacao-tratamento-efluentes-sanitarios',
-	# 'estacao-tratamento-esgoto',
-	# 'estacao-tratamento-esgoto-compacta',
-	# 'estacao-tratamento-esgoto-compacta-preco',
-	# 'estacao-tratamento-esgoto-comprar',
-	# 'estacao-tratamento-esgoto-convencional',
-	# 'estacao-tratamento-esgoto-domiciliar',
-	# 'estacao-tratamento-esgoto-condominios',
-	# 'estacao-tratamento-esgoto-individual',
-	# 'estacao-tratamento-esgoto-preco',
-	# 'estacao-tratamento-esgoto-projeto',
-	# 'estacao-tratamento-esgoto-residencial',
-	# 'eta-compacta-modular',
-	# 'eta-compacta-preco',
-	# 'eta-convencional-compacta',
-	# 'eta-estacao-tratamento-da-agua',
-	# 'ete-compacta-fibra',
-	# 'ete-compacta-fabricante',
-	# 'ete-compacta-industrial',
-	# 'ete-compacta-modular',
-	# 'ete-compacta-preco',
-	# 'ete-compacta-valor',
-	# 'ete-estacao-tratamento-efluentes',
-	# 'ete-estacao-tratamento-esgoto',
-	# 'ete-estacao-tratamento-esgoto-compacta',
-	# 'fabricantes-ete-compacta',
-	# 'preco-ete-compacta',
-	# 'reuso-aguas-cinzas-edificacoes',
-	# 'reuso-aguas-cinzas-irrigacao',
-	# 'sistema-esgoto-condominial',
-	# 'sistema-esgoto-condominial-convencional',
-	# 'sistema-tratamento-efluentes-sanitarios',
-	# 'sistemas-simples-tratamento-esgotos-sanitarios',
-	# 'tratamento-biologico-efluentes',
-	# 'tratamento-biologico-efluentes-domesticos',
-	# 'tratamento-efluente-sanitario-areas-rurais',
-	# 'tratamento-efluentes-fisico-quimico-biologico',
-	# 'tratamento-efluentes-hospitalares',
+	# 'empresas-esquadrias-aluminio-sp',
+	'empresas-esquadrias-aluminio',
 ]
 
 Error = { 'Não foi possível ler o(s) arquivo(s)':[],'Não foi possível criar o arquivo':[],'Não foi possível realizar o ajustes no(s) arquivo(s)':[],'Não foi possível recuperar o título da página':[], 'Não foi possível inserir strong no parágrafo do arquivo': [] }
@@ -76,7 +22,7 @@ def file_read(f):
 	content = []
 	import os.path
 	try:
-		with open(f + '.php', 'r', encoding='utf8') as file:
+		with open(f + '.php', 'r', encoding='utf-8') as file:
 			lines = file.readlines()
 			for elem in lines:
 				content.append(elem)
@@ -92,6 +38,10 @@ def urlReplace(x, y):
 	r = x[1].split('/')
 	return 'http://mpitemporario.com.br/projetos/' + r[2] + '/' + y
 
+# funcao para retirar os acentos
+def removeAccent(string):
+	from unidecode import unidecode
+	return unidecode(string)
 
 # variáveis para mascara
 elements = []
@@ -113,9 +63,9 @@ def mask(c, i):
 		m = re.sub(r"<\?.*\?>", remove, c)
 		soup = BeautifulSoup(m, "html.parser")
 		if i == True:
-			mask = re.sub(msk, remove, soup.prettify())
+			mask = re.sub(msk, remove, soup.prettify(formatter=None))
 		else:
-			mask = re.sub(msk, add, soup.prettify())
+			mask = re.sub(msk, add, soup.prettify(formatter=None))
 	except:
 		mask = False
 
@@ -132,7 +82,7 @@ def create(body, file):
 		Path(f'./projetos/{projeto}').mkdir(parents=True, exist_ok=True)
 
 	    # faz a criacao dos arquivos
-		with open(f'./projetos/{arquivo}' + '.php', 'a', encoding='utf8') as f:
+		with open(f'./projetos/{arquivo}' + '.php', 'w', encoding='utf-8') as f:
 			f.write(body)
 			f.write('</html>')
 	except: 
@@ -162,26 +112,13 @@ def fix_strong(t, html, a):
 					if title.lower() != strong.string.lower():
 						strong.string = title.lower()
 			else:
-				
-				# se nao tiver, localiza onde deveria e insere
-				if p.string.count(title.upper()) > 0:
-					r = p.string.replace(title.upper(), '<strong>'+title.lower()+'</strong>')
-					p.string = r
 
-				elif p.string.count(title.capitalize()) > 0:
-					r = p.string.replace(title.capitalize(), '<strong>'+title.lower()+'</strong>')
-					p.string = r
-
-				elif p.string.count(title.lower()) > 0:
-					r = p.string.replace(title.lower(), '<strong>'+title.lower()+'</strong>')
-					p.string = r
-
-				elif p.string.count(title.title()) > 0:
-					r = p.string.replace(title.title(), '<strong>'+title.lower()+'</strong>')
-					p.string = r
-				else:
-					Error['Não foi possível inserir strong no parágrafo do arquivo'].append(f'\n=> {a}')	
-
+				try:
+					if title.lower() in removeAccent(p.string).lower():
+						r = removeAccent(p.string).lower().replace(title.lower(), '<strong>'+title.lower()+'</strong>')
+						p.string = r
+				except:
+					Error['Não foi possível inserir strong no parágrafo do arquivo'].append(f'\n=> {a}')
 
 		# retorna novo código
 		for elem in soup.prettify(formatter=None):
@@ -218,8 +155,8 @@ try:
 
 				# tudo certo, gera o arquivo
 				if body != False:
-					create(body, a)
-					# print(body)
+					# create(body, a)
+					print(body)
 				else:
 					print(Fore, RED)
 					print('Falha na execução do strong.')
