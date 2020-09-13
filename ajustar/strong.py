@@ -177,12 +177,13 @@ print(Fore.RED)
 for errosItens in Error.keys():
 
     if len(Error[errosItens]) > 0:
-        print(errosItens)
+        print(errosItens+'\n')
         for errosValores in Error[errosItens]:
             print(errosValores)
+        print('\n')
     else:
     	print(Fore.GREEN)
-    	print(F'Ajustes realizados com sucesso em ({len(Success)}) projetos.')	
+    	print(f'Ajustes realizados com sucesso em ({len(Success)}) projetos.')	
     	break
 
 print(Style.RESET_ALL)
