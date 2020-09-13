@@ -11,11 +11,21 @@ htdocs = f'E://xampp/htdocs/{projeto}/' # alterar para htdocs proprio
 
 # inserir os arquivos para serem editados (sem .php)
 f = [
-	# 'empresas-esquadrias-aluminio-sp',
-	'empresas-esquadrias-aluminio',
+	'empresa-esquadrias-pvc',
 ]
 
-Error = { 'Não foi possível ler o(s) arquivo(s)':[],'Não foi possível criar o arquivo':[],'Não foi possível realizar o ajustes no(s) arquivo(s)':[],'Não foi possível recuperar o título da página':[], 'Não foi possível inserir strong no parágrafo do arquivo': [] }
+Log = { 
+	'Não foi possível alterar o H2 repetido no conteúdo': [],
+	'H2 excluído na página': [],
+}
+
+Error = {
+	'Não foi possível ler o(s) arquivo(s)':[],
+	'Não foi possível criar o arquivo':[],
+	'Não foi possível realizar o ajustes no(s) arquivo(s)':[],
+	'Não foi possível recuperar o título da página':[], 'Falha na execução do strong.': [] 
+}
+
 Success = []
 
 # le arquivo e recupera valores
@@ -102,24 +112,20 @@ def fix_strong(t, html, a):
 
 		# tenta rodar os ajustes
 
-		for p in soup.select('article > p'):
+		for p in soup.select('article'):
 
-			child = p.find_all('strong')
+			child = p.select('h2 + h2')
 
-			# verifica se o paragrafo tem strong
+			# verifica se o paragrafo tem sequencia de h2
 			if child:
-				for strong in child:
-					# ajusta quais não estão corretas
-					if title.lower() != strong.string.lower():
-						strong.string = title.lower()
+				for h2 in child:
+					if title.lower() not in h2.string.lower():
+						h2.name = 'p'
+						h2.string = h2.string.capitalize()
+					else:
+						Log['H2 excluído na página'].append(f'\n=> {a}')
 			else:
-
-				try:
-					if title.lower() in removeAccent(p.string).lower():
-						r = removeAccent(p.string).lower().replace(title.lower(), '<strong>'+title.lower()+'</strong>')
-						p.string = r
-				except:
-					Error['Não foi possível inserir strong no parágrafo do arquivo'].append(f'\n=> {a}')
+				Log['Não foi possível alterar o H2 repetido no conteúdo'].append(f'\n=> {a}')
 
 		# retorna novo código
 		for elem in soup.prettify(formatter=None):
@@ -160,8 +166,7 @@ try:
 					# print(body)
 					Success.append(f'=> {a}.php')
 				else:
-					print(Fore, RED)
-					print('Falha na execução do strong.')
+					Error['Falha na execução do strong.'].append(f'=> {a}.php')
 
 			except:
 				Error['Não foi possível realizar o ajustes no(s) arquivo(s)'].append(f'=> {a}.php')
@@ -172,19 +177,35 @@ except:
 	print(Fore.RED)
 	print('Não foi possível iniciar a função.', Style.RESET_ALL)
 
-print(Fore.RED)
 # Exibe log na tela
+print(Fore.RED)
 for errosItens in Error.keys():
-
     if len(Error[errosItens]) > 0:
+
         print(errosItens)
+
         for errosValores in Error[errosItens]:
             print(errosValores)
-    else:
-    	print(Fore.GREEN)
-    	print(F'Ajustes realizados com sucesso em ({len(Success)}) projetos.')	
-    	break
 
-print(Style.RESET_ALL)
+        msg = 'Falha ao tentar executar funções.'
+    else:
+    	msg = 'Ajustes realizados com sucesso em ({}) projetos.'.format(len(Success))
+	
+
+print(Fore.YELLOW)
+for logItens in Log.keys():
+	if len(Log[logItens]) > 0:
+	    print('!!! AVISO !!!\n')
+	    print(logItens)
+	    for logValores in Log[logItens]:
+	        print(logValores)
+
+if 'sucesso' in msg:
+	print(Fore.GREEN)
+else:
+	print(Fore.RED)
+
+print('\n')
+print(msg, Style.RESET_ALL)	
 
 input('\nFinalizado. Aperte "ENTER" para encerrar o programa.')
