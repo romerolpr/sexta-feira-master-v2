@@ -6,7 +6,7 @@ from colorama import Fore, Style
 session = HTMLSession()
 
 # variáveis do projeto
-projeto = 'nowbuck.com.br'
+projeto = 'casacastro.com.br'
 htdocs = f'C://xampp/htdocs/{projeto}/' # alterar para htdocs proprio
 
 # Quando "True", 
@@ -16,8 +16,14 @@ vAll = False
 
 # inserir os arquivos para serem editados (sem .php)
 f = [
-	# 'empresas-esquadrias-aluminio-sp',
-	'empresas-esquadrias-aluminio',
+	'botoes-espelhos',
+	'espelhos-decorativos-preco',
+	'paspatur-preco',
+	'preco-broca-vidro',
+	'preco-suporte-prateleira-vidro',
+	'acessorios-vidros-espelhos',
+	'conectivos-vidros-modulados-balcao',
+	'impressao-digital-quadro',
 ]
 
 Error = { 'Não foi possível ler o(s) arquivo(s)':[],'Não foi possível criar o arquivo':[],'Não foi possível realizar o ajustes no(s) arquivo(s)':[],'Não foi possível recuperar o título da página':[], 'Não foi possível inserir strong no parágrafo do arquivo': [] }
@@ -129,12 +135,10 @@ def fix_strong(t, html, a):
 						strong.string = title.lower()
 			else:
 
-				try:
-					if title.lower() in removeAccent(p.string).lower():
-						r = removeAccent(p.string).lower().replace(title.lower(), '<strong>'+title.lower()+'</strong>')
-						p.string = r
-				except:
-					Error['Não foi possível inserir strong no parágrafo do arquivo'].append(f'\n=> {a}')
+				if removeAccent(title).lower() in removeAccent(p.string).lower().strip():
+					r = p.string.lower().replace(title.lower().strip(), '<strong>'+title.lower()+'</strong>')
+					p.string = r
+				
 
 		# retorna novo código
 		for elem in soup.prettify(formatter=None):

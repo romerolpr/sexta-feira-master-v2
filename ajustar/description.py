@@ -12,11 +12,12 @@ htdocs = f'C://xampp/htdocs/{projeto}/' # alterar para htdocs proprio
 # Quando "True", 
 # ignora os arquivos inseridos manualmente na lista, 
 # e pega todas as mpis automaticamente
-vAll = True
+vAll = False
 
 # inserir os arquivos para serem editados (sem .php)
 f = [
-	'armazenagem-graos-galpao',
+	'mochila-rodinha-corporativa',
+	# 'mochila-ecologica',
 ]
 
 Log = { 
@@ -142,6 +143,8 @@ def fix_code(t, html, a):
 				for p in child:
 
 					i = remove_accent(str(p)).lower().find(title.lower())
+					p = re.sub(r'<.*>', '', str(p)).strip()
+					
 
 					if i >= 0:
 
@@ -158,10 +161,12 @@ def fix_code(t, html, a):
 						    del desc[-1]
 						    desc = " ".join(desc)
 
-						desc.lower()
+						desc.lower().strip()
 						desc += '... saiba mais.'.encode("latin1").decode("unicode_escape")
 
 					desc = f'$desc				= "{desc.capitalize()}";'
+
+					print(desc)
 
 				else:
 					Log['Não foi possível ajustar a description'].append(f'=> {a}')
@@ -177,7 +182,7 @@ def fix_code(t, html, a):
 		if desc:
 			value = re.sub(r"\$desc\s*=\s*[\"\']\w*\s*.+[\"\'\;]", desc, value)
 
-		return mask(value, False)
+		# return mask(value, False)
 
 	except:
 		return False
@@ -212,8 +217,8 @@ try:
 
 				# tudo certo, gera o arquivo
 				if body != False:
-					create(body, a)
-					# print(body)
+					# create(body, a)
+					print(body)
 					Success.append(f'=> {a}')
 				else:
 					Error['Falha na execução.'].append(f'=> {a}')
