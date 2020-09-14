@@ -135,9 +135,12 @@ def fix_strong(t, html, a):
 						strong.string = title.lower()
 			else:
 
-				if removeAccent(title).lower() in removeAccent(p.string).lower().strip():
-					r = p.string.lower().replace(title.lower().strip(), '<strong>'+title.lower()+'</strong>')
-					p.string = r
+				try:
+					if removeAccent(title).lower() in removeAccent(p.string).lower().strip():
+						r = p.string.lower().replace(title.lower().strip(), '<strong>'+title.lower()+'</strong>')
+						p.string = r
+				except:
+					Error['Não foi possível inserir strong no parágrafo do arquivo'].append(f'\n=> {a}')
 				
 
 		# retorna novo código
