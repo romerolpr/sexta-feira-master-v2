@@ -126,6 +126,7 @@ def PegaLinksDoSite(UrlSite):
         linksDaPagina = r.html.xpath('//a[not(@rel="nofollow")]/@href')
         links = []
         linksConfirmados = {'Todos':[UrlSite], 'Mapa Site':[], 'MPI':[]}
+
         def Recursividade(linksPrimeiraPagina):
             for link in linksPrimeiraPagina:
                 if root in link:

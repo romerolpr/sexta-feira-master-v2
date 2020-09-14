@@ -200,7 +200,7 @@ for logItens in Log.keys():
 	    for logValores in Log[logItens]:
 	        print(logValores)
 
-if 'sucesso' in msg:
+if 'sucesso' in msg and len(Success) > 0:
 	print(Fore.GREEN)
 else:
 	print(Fore.RED)
