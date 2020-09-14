@@ -6,13 +6,13 @@ from colorama import Fore, Style
 session = HTMLSession()
 
 # variáveis do projeto
-projeto = 'corfinp.com.br'
+projeto = 'nowbuck.com.br'
 htdocs = f'C://xampp/htdocs/{projeto}/' # alterar para htdocs proprio
 
 # Quando "True", 
 # ignora os arquivos inseridos manualmente na lista, 
 # e pega todas as mpis automaticamente
-vAll = False
+vAll = True
 
 # inserir os arquivos para serem editados (sem .php)
 f = [
@@ -147,10 +147,7 @@ def fix_code(t, html, a):
 
 						if len(str(p)) >= 125:
 							desc = title + ' ' + str(p)[:].strip()
-							print(desc)
 							break
-					else:
-						print('nao')
 
 				if desc:
 					if desc[-1] == '.' and len(desc) >= 140 and len(desc) <= 160 :
@@ -166,8 +163,6 @@ def fix_code(t, html, a):
 
 					desc = f'$desc				= "{desc.capitalize()}";'
 
-					print(desc)
-
 				else:
 					Log['Não foi possível ajustar a description'].append(f'=> {a}')
 		else:
@@ -182,7 +177,7 @@ def fix_code(t, html, a):
 		if desc:
 			value = re.sub(r"\$desc\s*=\s*[\"\']\w*\s*.+[\"\'\;]", desc, value)
 
-		# return mask(value, False)
+		return mask(value, False)
 
 	except:
 		return False
@@ -217,8 +212,8 @@ try:
 
 				# tudo certo, gera o arquivo
 				if body != False:
-					# create(body, a)
-					print(body)
+					create(body, a)
+					# print(body)
 					Success.append(f'=> {a}')
 				else:
 					Error['Falha na execução.'].append(f'=> {a}')

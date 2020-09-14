@@ -6,8 +6,13 @@ from colorama import Fore, Style
 session = HTMLSession()
 
 # variáveis do projeto
-projeto = 'romapvc.com.br'
-htdocs = f'E://xampp/htdocs/{projeto}/' # alterar para htdocs proprio
+projeto = 'nowbuck.com.br'
+htdocs = f'C://xampp/htdocs/{projeto}/' # alterar para htdocs proprio
+
+# Quando "True", 
+# ignora os arquivos inseridos manualmente na lista, 
+# e pega todas as mpis automaticamente
+vAll = False
 
 # inserir os arquivos para serem editados (sem .php)
 f = [
@@ -17,6 +22,13 @@ f = [
 
 Error = { 'Não foi possível ler o(s) arquivo(s)':[],'Não foi possível criar o arquivo':[],'Não foi possível realizar o ajustes no(s) arquivo(s)':[],'Não foi possível recuperar o título da página':[], 'Não foi possível inserir strong no parágrafo do arquivo': [] }
 Success = []
+
+def get_mpis(URL):
+    rm = session.get(URL + 'mapa-site')
+    subMenuInfo = rm.html.find('.sitemap ul.sub-menu-info li a')
+
+    for linkMPI in subMenuInfo:
+        f.append(linkMPI.attrs['href'].split('/')[-1])
 
 # le arquivo e recupera valores
 def file_read(f):
@@ -37,7 +49,10 @@ def file_read(f):
 def urlReplace(x, y):
 	x = x.split('//')
 	r = x[1].split('/')
-	return 'http://mpitemporario.com.br/projetos/' + r[2] + '/' + y
+	if y:
+		return 'http://mpitemporario.com.br/projetos/' + r[2] + '/' + y
+	else:
+		return 'http://mpitemporario.com.br/projetos/' + r[2] + '/'
 
 # funcao para retirar os acentos
 def removeAccent(string):
@@ -135,7 +150,11 @@ def fix_strong(t, html, a):
 # Inicia função principal para executar as correções
 print(Fore.YELLOW)
 print('Iniciando correções... Aguarde\n', Style.RESET_ALL)
+if vAll:
+	del f[:]
+	get_mpis(urlReplace(htdocs, False))
 try:
+
 	for a in tqdm(f):
 
 		r = session.get(urlReplace(htdocs, a))
