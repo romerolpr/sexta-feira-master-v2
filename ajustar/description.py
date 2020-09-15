@@ -6,7 +6,7 @@ from colorama import Fore, Style
 session = HTMLSession()
 
 # variáveis do projeto
-projeto = 'nowbuck.com.br'
+projeto = 'markmed.com.br'
 htdocs = f'C://xampp/htdocs/{projeto}/' # alterar para htdocs proprio
 
 # Quando "True", 
@@ -16,8 +16,21 @@ vAll = False
 
 # inserir os arquivos para serem editados (sem .php)
 f = [
-	'mochila-rodinha-corporativa',
-	# 'mochila-ecologica',
+	'preco-sonda-alimentacao-enteral',
+	# 'sonda-enteral-comprar',
+	# 'sonda-alimentacao-enteral',
+	# 'cateter-nasal-oxigenio-tipo-oculos',
+	# 'extensor-silicone-oxigenio',
+	# 'material-hospitalar-sao-paulo',
+	'produtos-medicos-hospitalares',
+	# 'produtos-medicos-hospitalares-sp',
+	# 'sonda-alimentacao',
+	# 'sonda-uretral-08',
+	# 'sonda-uretral-fabricante',
+	# 'sonda-uretral-valor',
+	# 'tubo-extensor-oxigenio',
+	# 'coletor-urina-masculino-preco',
+	# 'coletor-urina-atacad',
 ]
 
 Log = { 
@@ -72,7 +85,7 @@ msk = '!!!PHP!!!'
 
 # funções pra fazer a remoção
 def remove(d):
-    elements.append(d.group())
+    elements.append(d.group().strip())
     return msk
 def add(e):
     return elements.pop(0)
@@ -85,10 +98,9 @@ def mask(c, i):
 		# aplica a mascara
 		m = re.sub(r"<\?.*\?>", remove, c)
 		soup = BeautifulSoup(m, "html.parser")
-		if i == True:
-			mask = re.sub(msk, remove, soup.prettify(formatter=None))
-		else:
-			mask = re.sub(msk, add, soup.prettify(formatter=None))
+
+		mask = re.sub(msk, remove, str(soup.prettify(formatter=None))) if i else re.sub(msk, add, str(soup.prettify(formatter=None)))
+			
 	except:
 		mask = False
 
@@ -118,71 +130,69 @@ def fix_code(t, html, a):
 	content = []
 	try:
 
+		# removendo tags
+		m = re.search(r"\$desc\s*=\s*[\"\']\w*\s*.+[\"\'\;]", html)
+		sub = re.sub(r'<.*>', '', m.group(0)).strip()
+
+		# redigita o código
+		html = re.sub(r'\$desc\s*=\s*[\"\']\w*\s*.+[\"\'\;]', sub, html)
+
 		# criando o soup em html
 		soup = BeautifulSoup(mask(html, True), "html.parser")
 		title = t.strip()
 
+		# resgata a description atual no mpitemporario e arquiivo local
+		currentDesc = session.get(url_replace(htdocs, a)).html.find('head meta[name="description"]', first=True).attrs['content']
+
 		# verifica se a description está realmente errada
-		currentDesc = re.search(r"\$desc\s*=\s*[\"\']\w*\s*.+[\"\'\;]", str(soup))
-		# currentDesc.group(0)
-
-		if currentDesc != None:
-
-			math = currentDesc.group(0)
-			if math.lower().find(title.lower()) >= 0:
-				descfix = True
+		descfix = True if remove_accent(title.lower()) not in remove_accent(currentDesc.lower()) or re.search(r'<.*>', m.group()) else False
 
 		if descfix:
+			# resgata os paragrafos
+			article = session.get(url_replace(htdocs, a)).html.find('article p')
+			# verifica a description
+			for p in article:
 
-			for p in soup.select('article'):
+				# compara já retirando acentos
+				i = remove_accent(p.text).lower().find(remove_accent(title).lower())
+				
+				if i >= 0:
+					if len(p.text[i:]) >= 125:
+						desc = p.text[i:].strip()
+						break
 
-				# resgata o primeiro paragrafo do article
-				child = p.find_all('p')
-
-				# verifica a description
-				for p in child:
-
-					i = remove_accent(str(p)).lower().find(title.lower())
-					p = re.sub(r'<.*>', '', str(p)).strip()
-					
-
-					if i >= 0:
-
-						if len(str(p)) >= 125:
-							desc = title + ' ' + str(p)[:].strip()
-							break
-
-				if desc:
-					if desc[-1] == '.' and len(desc) >= 140 and len(desc) <= 160 :
-					    desc = desc.lower()
-					else:
-						while len(desc) > 145:
-						    desc = desc.split(" ")
-						    del desc[-1]
-						    desc = " ".join(desc)
-
-						desc.lower().strip()
-						desc += '... saiba mais.'.encode("latin1").decode("unicode_escape")
-
-					desc = f'$desc				= "{desc.capitalize()}";'
-
-					print(desc)
-
+			if desc:
+				if desc[-1] == '.' and len(desc) >= 140 and len(desc) <= 160 :
+				    desc = desc.lower()
 				else:
-					Log['Não foi possível ajustar a description'].append(f'=> {a}')
+					while len(desc) > 145:
+					    desc = desc.split(" ")
+					    del desc[-1]
+					    desc = " ".join(desc)
+
+					desc.lower()
+					desc += '... saiba mais.'.encode("latin1").decode("unicode_escape")
+
+				desc = f'$desc				= "{desc.capitalize()}";'
+
+				# print(desc)
+
+			else:
+				Log['Não foi possível ajustar a description'].append(f'=> {a}')
+
 		else:
 			Log['Description atual está correta.'].append(f'=> {a}')
+
+		# aplica a nova description
 
 		# retorna novo código
 		for elem in soup.prettify(formatter=None):
 			content.append(elem)
 		value = ''.join(map(str, content))
 
-		# aplica a nova description
-		if desc:
-			value = re.sub(r"\$desc\s*=\s*[\"\']\w*\s*.+[\"\'\;]", desc, value)
+		value = re.sub(r"\$desc\s*=\s*[\"\']\w*\s*.+[\"\'\;]", desc, str(soup)) if desc else value
 
-		# return mask(value, False)
+		return mask(value, False)
 
 	except:
 		return False
@@ -197,28 +207,32 @@ if vAll:
 	get_mpis(url_replace(htdocs, False))
 
 try:
+	import re
+
 	for a in tqdm(f):
 
 		r = session.get(url_replace(htdocs, a))
+
 		# constroi o arquivo
 		html = file_read(htdocs + a.strip())
-		# retorna o title da pagina
+
 		try:
-			t = r.html.find('head title')
-			for v in t:
-				title = v.text.split('-')[0]
+			# retorna o title da pagina local
+			title = re.search(r"\$h1\s*=\s*[\"\']\w*\s*.+[\"\'\;]", html).group(0)
+			title = re.search(r"\s*[\"\']\w*\s*.+[\"\']", title).group(0).replace('"', '').strip()
 		except:
-			Error['Não foi possível recuperar o título da página'].append(f'=> {url_replace(htdocs, a)}')
+			# retorna erro do title
+			Error['Não foi possível recuperar o título da página'].append(f'=> {a}')
 		else:
 			try:
-				
+
 				# Após receber todos os valores com sucesso, realiza os ajustes e retira a máscara do código
 				body = fix_code(title, html, a)
 
 				# tudo certo, gera o arquivo
 				if body != False:
-					# create(body, a)
-					print(body)
+					create(body, a)
+					# print(body)
 					Success.append(f'=> {a}')
 				else:
 					Error['Falha na execução.'].append(f'=> {a}')
@@ -243,7 +257,7 @@ for errosItens in Error.keys():
 
         msg = 'Falha ao tentar executar 1 ou mais funções.'
     else:
-    	msg = 'Ajustes realizados com sucesso em ({}) projetos.'.format(len(Success))
+    	msg = 'Ajustes realizados em ({}) projetos.'.format(len(Success))
 	
 
 print(Fore.YELLOW)
@@ -254,7 +268,7 @@ for logItens in Log.keys():
 	    for logValores in Log[logItens]:
 	        print(logValores)
 
-if 'sucesso' in msg and len(Success) > 0:
+if len(Success) > 0:
 	print(Fore.GREEN)
 else:
 	print(Fore.RED)

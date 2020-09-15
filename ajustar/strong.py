@@ -6,7 +6,7 @@ from colorama import Fore, Style
 session = HTMLSession()
 
 # variáveis do projeto
-projeto = 'casacastro.com.br'
+projeto = 'fastinox.com.br'
 htdocs = f'C://xampp/htdocs/{projeto}/' # alterar para htdocs proprio
 
 # Quando "True", 
@@ -16,14 +16,7 @@ vAll = False
 
 # inserir os arquivos para serem editados (sem .php)
 f = [
-	'botoes-espelhos',
-	'espelhos-decorativos-preco',
-	'paspatur-preco',
-	'preco-broca-vidro',
-	'preco-suporte-prateleira-vidro',
-	'acessorios-vidros-espelhos',
-	'conectivos-vidros-modulados-balcao',
-	'impressao-digital-quadro',
+	'instrumentos-cirurgicos-ribeirao-preto'
 ]
 
 Error = { 'Não foi possível ler o(s) arquivo(s)':[],'Não foi possível criar o arquivo':[],'Não foi possível realizar o ajustes no(s) arquivo(s)':[],'Não foi possível recuperar o título da página':[], 'Não foi possível inserir strong no parágrafo do arquivo': [] }
