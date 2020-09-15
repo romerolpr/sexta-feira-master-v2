@@ -16,21 +16,9 @@ vAll = False
 
 # inserir os arquivos para serem editados (sem .php)
 f = [
-	'preco-sonda-alimentacao-enteral',
-	# 'sonda-enteral-comprar',
-	# 'sonda-alimentacao-enteral',
-	# 'cateter-nasal-oxigenio-tipo-oculos',
-	# 'extensor-silicone-oxigenio',
-	# 'material-hospitalar-sao-paulo',
-	'produtos-medicos-hospitalares',
-	# 'produtos-medicos-hospitalares-sp',
-	# 'sonda-alimentacao',
-	# 'sonda-uretral-08',
-	# 'sonda-uretral-fabricante',
-	# 'sonda-uretral-valor',
-	# 'tubo-extensor-oxigenio',
-	# 'coletor-urina-masculino-preco',
-	# 'coletor-urina-atacad',
+	'cateter-oxigenio',
+	'fabricantes-material-medico-hospitalar',
+	'empresas-material-medico-hospitalar'
 ]
 
 Log = { 
@@ -154,11 +142,16 @@ def fix_code(t, html, a):
 			for p in article:
 
 				# compara já retirando acentos
-				i = remove_accent(p.text).lower().find(remove_accent(title).lower())
+				a = p.text.lower().find(remove_accent(title).lower())
+				b = remove_accent(p.text).lower().find(title.lower())
 				
-				if i >= 0:
-					if len(p.text[i:]) >= 125:
-						desc = p.text[i:].strip()
+				if b >= 0:
+					if len(p.text[b:]) >= 125:
+						desc = remove_accent(p.text[b:]).strip()
+						break
+				elif a >= 0:
+					if len(p.text[a:]) >= 125:
+						desc = p.text[a:].strip()
 						break
 
 			if desc:

@@ -6,7 +6,7 @@ from colorama import Fore, Style
 session = HTMLSession()
 
 # variáveis do projeto
-projeto = 'fastinox.com.br'
+projeto = 'markmed.com.br'
 htdocs = f'C://xampp/htdocs/{projeto}/' # alterar para htdocs proprio
 
 # Quando "True", 
@@ -16,7 +16,10 @@ vAll = False
 
 # inserir os arquivos para serem editados (sem .php)
 f = [
-	'instrumentos-cirurgicos-ribeirao-preto'
+	'cateter-oxigenio',
+	'fabricantes-material-medico-hospitalar',
+	'tubo-extensor-oxigenio',
+	'empresas-material-medico-hospitalar',
 ]
 
 Error = { 'Não foi possível ler o(s) arquivo(s)':[],'Não foi possível criar o arquivo':[],'Não foi possível realizar o ajustes no(s) arquivo(s)':[],'Não foi possível recuperar o título da página':[], 'Não foi possível inserir strong no parágrafo do arquivo': [] }
@@ -130,10 +133,13 @@ def fix_strong(t, html, a):
 
 				try:
 					if removeAccent(title).lower() in removeAccent(p.string).lower().strip():
-						r = p.string.lower().replace(title.lower().strip(), '<strong>'+title.lower()+'</strong>')
+						r = removeAccent(p.string).lower().replace(removeAccent(title).lower().strip(), '<strong>'+title.lower()+'</strong>')
 						p.string = r
+
+						# print(p.string)
 				except:
 					Error['Não foi possível inserir strong no parágrafo do arquivo'].append(f'\n=> {a}')
+				
 				
 
 		# retorna novo código
