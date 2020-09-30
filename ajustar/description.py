@@ -6,37 +6,68 @@ from colorama import Fore, Style
 session = HTMLSession()
 
 # variáveis do projeto
-projeto = 'markmed.com.br'
+projeto = 'bmiindustrial.com.br'
 htdocs = f'C://xampp/htdocs/{projeto}/' # alterar para htdocs proprio
 
-# Quando "True", 
-# ignora os arquivos inseridos manualmente na lista, 
-# e pega todas as mpis automaticamente
-vAll = False
+# variáveis do sistema
+VAR = {
+	
+	'htdocs': f'C://xampp/htdocs/{projeto}/',
+	'url': 'mpitemporario.com.br/projetos/',
+	'nova-mpi': False,
 
-# inserir os arquivos para serem editados (sem .php)
-f = [
-	'cateter-oxigenio',
-	'fabricantes-material-medico-hospitalar',
-	'empresas-material-medico-hospitalar'
-]
-
-Log = { 
-	'Não foi possível ajustar a description': [],
-	'Description atual está correta.': [],
+	# Recupera todas as mpis automaticamente
+	'vAll': False,
+	'vMPI': [
+		# Inserir aqui arquivos manualmentes (sem .php)
+		'banho-zinco-amarelo',
+		'banho-zinco-parado',
+		'empresa-pintura-eletrostatica',
+		'galvanizacao-eletrolitica',
+		'pintura-eletrostatica',
+		'pintura-eletrostatica-esquadrias-aluminio',
+		'pintura-eletrostatica-valor',
+		'zincagem-negra',
+	] 
 }
 
-Error = {'Não foi possível ler o(s) arquivo(s)':[],'Não foi possível criar o arquivo':[],'Não foi possível realizar o ajustes no(s) arquivo(s)':[],'Não foi possível recuperar o título da página':[], 'Falha na execução.': [], 'Não foi possível iniciar a função.': [], }
-Success = []
+Log = {
+
+	'Warning': {
+		'Não foi possível ajustar a description': [],
+		'Description atual está correta.': [],
+	},
+
+	'Error': {
+		'Não foi possível ler o(s) arquivo(s)': [],
+		'Não foi possível criar o arquivo': [],
+		'Não foi possível realizar o ajustes no(s) arquivo(s)': [],
+		'Não foi possível recuperar o título da página': [],
+		'Não foi possível inserir strong no parágrafo do arquivo': [],
+		'Não foi possível iniciar a função.': [],
+		'Falha na execução.': [],
+	},
+
+	'Success': []
+}
+
+# remover os arquivos caso exista
+def remove_files():
+	import os
+	path = 'projetos/' + projeto
+	dir = os.listdir(path)
+	for file in dir:
+	    os.remove(file)
+	    return True
 
 # pegar todas as mpis
 
-def get_mpis(URL):
-    rm = session.get(URL + 'mapa-site')
+def get_mpis(url):
+    rm = session.get(url + 'mapa-site')
     subMenuInfo = rm.html.find('.sitemap ul.sub-menu-info li a')
 
     for linkMPI in subMenuInfo:
-        f.append(linkMPI.attrs['href'].split('/')[-1])
+        VAR['vMPI'].append(linkMPI.attrs['href'].split('/')[-1])
 
 # le arquivo e recupera valores
 def file_read(f):
@@ -49,18 +80,14 @@ def file_read(f):
 				content.append(elem)
 				# string converter
 			return ''.join(map(str, content))
-	except IOError:
+	except IOLog:
 		return False	
-		Error['Não foi possível ler o(s) arquivo(s)'].append(f'=> {f}')
+		Log['Error']['Não foi possível ler o(s) arquivo(s)'].append(f'=> {f}')
 
 # montar url do temporario
-def url_replace(path, file):
-	path = path.split('//')
-	r = path[1].split('/')
-	if file:
-		return 'http://mpitemporario.com.br/projetos/' + r[2] + '/' + file
-	else:
-		return 'http://mpitemporario.com.br/projetos/' + r[2] + '/'
+def url_replace(url, file):
+	rewrite = 'http://' + VAR['url'] + projeto + '/' if not file else 'http://' + VAR['url'] + projeto + '/' + file
+	return rewrite
 
 # funcao para retirar os acentos
 def remove_accent(string):
@@ -97,19 +124,19 @@ def mask(c, i):
 # cria o arquivo
 def create(body, file):
 	from pathlib import Path
-	arquivo = projeto + '/' + file
+	arquivo = projeto + '/description/' + file
 	# realiza a criacao dos arquivos
 	try:
 
 		# faz a criacao da pasta
-		Path(f'./projetos/{projeto}').mkdir(parents=True, exist_ok=True)
+		Path(f'./projetos/{projeto}/description/').mkdir(parents=True, exist_ok=True)
 
 	    # faz a criacao dos arquivos
 		with open(f'./projetos/{arquivo}' + '.php', 'w', encoding='utf-8') as f:
 			f.write(body)
 			f.write('</html>')
 	except: 
-	    Error['Não foi possível criar o arquivo'].append(f'=> {file}')
+	    Log['Error']['Não foi possível criar o arquivo'].append(f'=> {file}')
 
 # faz o ajuste nos strongs do projeto
 def fix_code(t, html, a):
@@ -118,28 +145,35 @@ def fix_code(t, html, a):
 	content = []
 	try:
 
+		method = '.mpi-content' if VAR['nova-mpi'] else 'article'
+
 		# removendo tags
-		m = re.search(r"\$desc\s*=\s*[\"\']\w*\s*.+[\"\'\;]", html)
+		m 	= re.search(r"\$desc\s*=\s*[\"\']\w*\s*.+[\"\'\;]", html)
 		sub = re.sub(r'<.*>', '', m.group(0)).strip()
+		space = m.group(0)
 
 		# redigita o código
 		html = re.sub(r'\$desc\s*=\s*[\"\']\w*\s*.+[\"\'\;]', sub, html)
+		html = html.replace(' , ', ', ') if space.find(' , ') >= 0 else html
+		html = html.replace(' . ', ' ') if space.find(' . ') >= 0 else html
+
 
 		# criando o soup em html
 		soup = BeautifulSoup(mask(html, True), "html.parser")
 		title = t.strip()
 
 		# resgata a description atual no mpitemporario e arquiivo local
-		currentDesc = session.get(url_replace(htdocs, a)).html.find('head meta[name="description"]', first=True).attrs['content']
+		currentDesc = session.get(url_replace(VAR['htdocs'], a)).html.find('head meta[name="description"]', first=True).attrs['content']
 
 		# verifica se a description está realmente errada
-		descfix = True if remove_accent(title.lower()) not in remove_accent(currentDesc.lower()) or re.search(r'<.*>', m.group()) else False
+		descfix = True if remove_accent(title.lower()) not in remove_accent(currentDesc.lower()) or re.search(r'<.*>', m.group()) or m.group().find('  ') or not remove_accent(m.group(0).lower()).find(remove_accent(title.lower())) else False
 
 		if descfix:
 			# resgata os paragrafos
-			article = session.get(url_replace(htdocs, a)).html.find('article p')
+			article = session.get(url_replace(VAR['htdocs'], a)).html.find(f'{method} > p')
 			# verifica a description
 			for p in article:
+
 
 				# compara já retirando acentos
 				a = p.text.lower().find(remove_accent(title).lower())
@@ -171,10 +205,10 @@ def fix_code(t, html, a):
 				# print(desc)
 
 			else:
-				Log['Não foi possível ajustar a description'].append(f'=> {a}')
+				Log['Warning']['Não foi possível ajustar a description'].append(f'=> {a}')
 
 		else:
-			Log['Description atual está correta.'].append(f'=> {a}')
+			Log['Warning']['Description atual está correta.'].append(f'=> {a}')
 
 		# aplica a nova description
 
@@ -195,19 +229,21 @@ def fix_code(t, html, a):
 print(Fore.YELLOW)
 print('Iniciando correções... Aguarde\n', Style.RESET_ALL)
 	
-if vAll:
-	del f[:]
-	get_mpis(url_replace(htdocs, False))
+if VAR['vAll']:
+	del VAR['vMPI'][:]
+	get_mpis(url_replace(VAR['htdocs'], False))
 
 try:
 	import re
 
-	for a in tqdm(f):
+	for a in tqdm(VAR['vMPI']):
 
-		r = session.get(url_replace(htdocs, a))
+		a = a.strip()
+
+		r = session.get(url_replace(VAR['htdocs'], a))
 
 		# constroi o arquivo
-		html = file_read(htdocs + a.strip())
+		html = file_read(VAR['htdocs'] + a.strip())
 
 		try:
 			# retorna o title da pagina local
@@ -215,7 +251,7 @@ try:
 			title = re.search(r"\s*[\"\']\w*\s*.+[\"\']", title).group(0).replace('"', '').strip()
 		except:
 			# retorna erro do title
-			Error['Não foi possível recuperar o título da página'].append(f'=> {a}')
+			Log['Error']['Não foi possível recuperar o título da página'].append(f'=> {a}')
 		else:
 			try:
 
@@ -224,49 +260,32 @@ try:
 
 				# tudo certo, gera o arquivo
 				if body != False:
+					# if remove_files():
 					create(body, a)
 					# print(body)
-					Success.append(f'=> {a}')
+					Log['Success'].append(f'=> {a}')
 				else:
-					Error['Falha na execução.'].append(f'=> {a}')
+					Log['Error']['Falha na execução.'].append(f'=> {a}')
+					# print(body)
 
 			except:
-				Error['Não foi possível realizar o ajustes no(s) arquivo(s)'].append(f'=> {a}')
+				Log['Error']['Não foi possível realizar o ajustes no(s) arquivo(s)'].append(f'=> {a}')
 
 			del elements[:]
 		
 except:
-	Error['Não foi possível iniciar a função.'].append(f'=> {htdocs}')
+	Log['Error']['Não foi possível iniciar a função.'].append('=> {}'.format(VAR['htdocs']))
 
 # Exibe log na tela
-print(Fore.RED)
-for errosItens in Error.keys():
-    if len(Error[errosItens]) > 0:
-
-        print(errosItens)
-
-        for errosValores in Error[errosItens]:
-            print(errosValores)
-
-        msg = 'Falha ao tentar executar 1 ou mais funções.'
-    else:
-    	msg = 'Ajustes realizados em ({}) projetos.'.format(len(Success))
-	
-
-print(Fore.YELLOW)
-for logItens in Log.keys():
-	if len(Log[logItens]) > 0:
-	    print('!!! AVISO !!!\n')
-	    print(logItens)
-	    for logValores in Log[logItens]:
-	        print(logValores)
-
-if len(Success) > 0:
-	print(Fore.GREEN)
-else:
-	print(Fore.RED)
-
-print('\n')
-print(msg, Style.RESET_ALL)	
+for x in Log.keys():
+	for y in Log[x]:
+		if x == 'Success':
+			print('\nForam realizados {}/{} ajustes no projeto.'.format(len(Log['Success']), len(VAR['vMPI'])))
+			break
+		else:
+			if len(Log[x][y]) > 0:
+				print('\n' + y)
+				for z in Log[x][y]:
+					print(' ' + z)
 
 input('\nFinalizado. Aperte "ENTER" para encerrar o programa.')

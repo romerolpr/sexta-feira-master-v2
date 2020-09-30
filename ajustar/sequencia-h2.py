@@ -6,17 +6,40 @@ from colorama import Fore, Style
 session = HTMLSession()
 
 # variáveis do projeto
-projeto = 'romapvc.com.br'
-htdocs = f'E://xampp/htdocs/{projeto}/' # alterar para htdocs proprio
+projeto = 'jlterraplenagem.com.br'
+htdocs = f'C://xampp/htdocs/{projeto}/' # alterar para htdocs proprio
 
 # inserir os arquivos para serem editados (sem .php)
 f = [
-	'empresa-esquadrias-pvc',
+	'construir-galpao',
+	'empresas-automacao-industrial',
+	'empresas-engenharia-construcao',
+	'empresas-instrumentacao',
+	'empresas-locacao-equipamentos',
+	'empresas-planejamento-gerenciamento-obras',
+	'gabiao-preco',
+	'gabiao-preco-m3',
+	'gasoduto-preco',
+	'instalacoes-eletricas-preco',
+	'instrumentacao-equipamentos',
+	'locacao-equipamentos-obra',
+	'locacao-maquinas-equipamentos-construcao-civil',
+	'locacao-maquinas-pesadas',
+	'orcamento-supressao-vegetacao',
+	'pavimentacao-intertravada-preco',
+	'piso-intertravado-valor-m2',
+	'preco-metro-quadrado-pavimentacao-asfaltica',
+	'rebaixamento-lencol-freatico-empresas-sp',
+	'servico-drenagem',
+	'servico-drenagem-urbana',
+	'servicos-construcao-civil',
+	'empresa-terraplanagem-campinas',
+	'empresas-automacao-industrial-campina',
 ]
 
 Log = { 
-	'Não foi possível alterar o H2 repetido no conteúdo': [],
-	'H2 excluído na página': [],
+	'O arquivo não possui sequência de H2': [],
+	'Não foi possível realizar a adequação do H2': [],
 }
 
 Error = {
@@ -119,13 +142,13 @@ def fix_strong(t, html, a):
 			# verifica se o paragrafo tem sequencia de h2
 			if child:
 				for h2 in child:
-					if title.lower() not in h2.string.lower():
-						h2.name = 'p'
-						h2.string = h2.string.capitalize()
-					else:
-						Log['H2 excluído na página'].append(f'\n=> {a}')
+					# if removeAccent(title).lower() != removeAccent(h2.string).lower():
+					h2.name = 'p'
+					h2.string = h2.string.lower().capitalize()
+					# else:
+						# Log['Não foi possível realizar a adequação do H2'].append(f'=> {a}')
 			else:
-				Log['Não foi possível alterar o H2 repetido no conteúdo'].append(f'\n=> {a}')
+				Log['O arquivo não possui sequência de H2'].append(f'=> {a}')
 
 		# retorna novo código
 		for elem in soup.prettify(formatter=None):

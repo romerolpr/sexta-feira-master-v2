@@ -3,34 +3,49 @@ from tqdm.auto import tqdm
 from requests_html import HTMLSession
 from colorama import Fore, Style
 
+projeto = 'bmiindustrial.com.br'
+
+# variáveis do sistema
+VAR = {
+	
+	'htdocs': f'C://xampp/htdocs/{projeto}/',
+	'url': 'mpitemporario.com.br/projetos/',
+	'nova-mpi': False,
+
+	# Recupera todas as mpis automaticamente
+	'vAll': True,
+	'vMPI': [
+		# Inserir aqui arquivos manualmentes (sem .php)
+	] 
+}
+
+Log = {
+
+	'Warning': {
+		'Não foi possível inserir o strong no parágrafo': [], 
+	},
+
+	'Error': {
+		'Não foi possível ler o(s) arquivo(s)': [],
+		'Não foi possível criar o arquivo': [],
+		'Não foi possível realizar o ajustes no(s) arquivo(s)': [],
+		'Não foi possível recuperar o título da página': [],
+		'Não foi possível inserir strong no parágrafo do arquivo': [],
+		'Não foi possível iniciar a função.': [],
+		'Falha na execução.': [],
+	},
+
+	'Success': []
+}
+
 session = HTMLSession()
 
-# variáveis do projeto
-projeto = 'markmed.com.br'
-htdocs = f'C://xampp/htdocs/{projeto}/' # alterar para htdocs proprio
-
-# Quando "True", 
-# ignora os arquivos inseridos manualmente na lista, 
-# e pega todas as mpis automaticamente
-vAll = False
-
-# inserir os arquivos para serem editados (sem .php)
-f = [
-	'cateter-oxigenio',
-	'fabricantes-material-medico-hospitalar',
-	'tubo-extensor-oxigenio',
-	'empresas-material-medico-hospitalar',
-]
-
-Error = { 'Não foi possível ler o(s) arquivo(s)':[],'Não foi possível criar o arquivo':[],'Não foi possível realizar o ajustes no(s) arquivo(s)':[],'Não foi possível recuperar o título da página':[], 'Não foi possível inserir strong no parágrafo do arquivo': [] }
-Success = []
 
 def get_mpis(URL):
     rm = session.get(URL + 'mapa-site')
     subMenuInfo = rm.html.find('.sitemap ul.sub-menu-info li a')
-
     for linkMPI in subMenuInfo:
-        f.append(linkMPI.attrs['href'].split('/')[-1])
+        VAR['vMPI'].append(linkMPI.attrs['href'].split('/')[-1])
 
 # le arquivo e recupera valores
 def file_read(f):
@@ -45,19 +60,15 @@ def file_read(f):
 			return ''.join(map(str, content))
 	except IOError:
 		return False	
-		Error['Não foi possível ler o(s) arquivo(s)'].append(f'=> {f}.php')
+		Log['Error']['Não foi possível ler o(s) arquivo(s)'].append(f'=> {f}.php')
 
 # montar url do temporario
-def urlReplace(x, y):
-	x = x.split('//')
-	r = x[1].split('/')
-	if y:
-		return 'http://mpitemporario.com.br/projetos/' + r[2] + '/' + y
-	else:
-		return 'http://mpitemporario.com.br/projetos/' + r[2] + '/'
+def url_replace(url, file):
+	rewrite = 'http://' + VAR['url'] + projeto + '/' if not file else 'http://' + VAR['url'] + projeto + '/' + file
+	return rewrite
 
 # funcao para retirar os acentos
-def removeAccent(string):
+def remove_accent(string):
 	from unidecode import unidecode
 	return unidecode(string)
 
@@ -80,10 +91,8 @@ def mask(c, i):
 		# aplica a mascara
 		m = re.sub(r"<\?.*\?>", remove, c)
 		soup = BeautifulSoup(m, "html.parser")
-		if i == True:
-			mask = re.sub(msk, remove, soup.prettify(formatter=None))
-		else:
-			mask = re.sub(msk, add, soup.prettify(formatter=None))
+		
+		mask = re.sub(msk, remove, str(soup.prettify(formatter=None))) if i else re.sub(msk, add, str(soup.prettify(formatter=None)))
 	except:
 		mask = False
 
@@ -92,19 +101,19 @@ def mask(c, i):
 # cria o arquivo
 def create(body, file):
 	from pathlib import Path
-	arquivo = projeto + '/' + file
+	arquivo = projeto + '/strong/' + file
 	# realiza a criacao dos arquivos
 	try:
 
 		# faz a criacao da pasta
-		Path(f'./projetos/{projeto}').mkdir(parents=True, exist_ok=True)
+		Path(f'./projetos/{projeto}/strong/').mkdir(parents=True, exist_ok=True)
 
 	    # faz a criacao dos arquivos
 		with open(f'./projetos/{arquivo}' + '.php', 'w', encoding='utf-8') as f:
 			f.write(body)
 			f.write('</html>')
 	except: 
-	    Error['Não foi possível criar o arquivo'].append(f'=> {file}.php')
+	    Log['Error']['Não foi possível criar o arquivo'].append(f'=> {file}.php')
 
 # faz o ajuste nos strongs do projeto
 def fix_strong(t, html, a):
@@ -117,9 +126,11 @@ def fix_strong(t, html, a):
 		soup = BeautifulSoup(mask(html, True), "html.parser")
 		title = t.strip()
 
+		method = '.mpi-content' if VAR['nova-mpi'] else 'article'
+
 		# tenta rodar os ajustes
 
-		for p in soup.select('article > p'):
+		for p in soup.select(f'{method} > p'):
 
 			child = p.find_all('strong')
 
@@ -127,19 +138,18 @@ def fix_strong(t, html, a):
 			if child:
 				for strong in child:
 					# ajusta quais não estão corretas
-					if title.lower() != strong.string.lower():
+					if remove_accent(title).lower() != remove_accent(strong.string).lower().strip():
 						strong.string = title.lower()
 			else:
 
 				try:
-					if removeAccent(title).lower() in removeAccent(p.string).lower().strip():
-						r = removeAccent(p.string).lower().replace(removeAccent(title).lower().strip(), '<strong>'+title.lower()+'</strong>')
+					# insere onde não tem strong
+					if remove_accent(title).lower() in remove_accent(p.string).lower().strip():
+						r = remove_accent(p.string).lower().strip().replace(remove_accent(title).lower().strip(), '<strong>'+title.lower()+'</strong>')
 						p.string = r
-
-						# print(p.string)
 				except:
-					Error['Não foi possível inserir strong no parágrafo do arquivo'].append(f'\n=> {a}')
-				
+					Log['Warning']['Não foi possível inserir o strong no parágrafo'].append(f'=> {a}')
+					return False
 				
 
 		# retorna novo código
@@ -156,23 +166,23 @@ def fix_strong(t, html, a):
 # Inicia função principal para executar as correções
 print(Fore.YELLOW)
 print('Iniciando correções... Aguarde\n', Style.RESET_ALL)
-if vAll:
-	del f[:]
-	get_mpis(urlReplace(htdocs, False))
+if VAR['vAll']:
+	del VAR['vMPI'][:]
+	get_mpis(url_replace(VAR['htdocs'], False))
 try:
 
-	for a in tqdm(f):
+	for a in tqdm(VAR['vMPI']):
 
-		r = session.get(urlReplace(htdocs, a))
+		r = session.get(url_replace(VAR['htdocs'], a))
 		# constroi o arquivo
-		html = file_read(htdocs + a.strip())
+		html = file_read(VAR['htdocs'] + a.strip())
 		# retorna o title da pagina
 		try:
 			t = r.html.find('head title')
 			for v in t:
 				title = v.text.split('-')[0]
 		except:
-			Error['Não foi possível recuperar o título da página'].append(f'=> {urlReplace(htdocs, a)}')
+			Log['Error']['Não foi possível recuperar o título da página'].append('=> {}'.format(url_replace(VAR['htdocs'], a)))
 		else:
 			try:
 				
@@ -183,34 +193,27 @@ try:
 				if body != False:
 					create(body, a)
 					# print(body)
-					Success.append(f'=> {a}.php')
+					Log['Success'].append(f'=> {a}')
 				else:
-					print(Fore, RED)
-					print('Falha na execução do strong.')
-
+					Log['Error']['Falha na execução.'].append(f'=> {a}')
 			except:
-				Error['Não foi possível realizar o ajustes no(s) arquivo(s)'].append(f'=> {a}.php')
+				Log['Error']['Não foi possível realizar o ajustes no(s) arquivo(s)'].append(f'=> {a}')
 
 			del elements[:]
 		
 except:
-	print(Fore.RED)
-	print('Não foi possível iniciar a função.', Style.RESET_ALL)
+	Log['Error']['Não foi possível iniciar a função.'].append('=> {}'.format(VAR['htdocs']))
 
-print(Fore.RED)
 # Exibe log na tela
-for errosItens in Error.keys():
-
-    if len(Error[errosItens]) > 0:
-        print(errosItens+'\n')
-        for errosValores in Error[errosItens]:
-            print(errosValores)
-        print('\n')
-    else:
-    	print(Fore.GREEN)
-    	print(f'Ajustes realizados com sucesso em ({len(Success)}) projetos.')	
-    	break
-
-print(Style.RESET_ALL)
+for x in Log.keys():
+	for y in Log[x]:
+		if x == 'Success':
+			print('\nForam realizados {}/{} ajustes no projeto.'.format(len(Log['Success']), len(VAR['vMPI'])))
+			break
+		else:
+			if len(Log[x][y]) > 0:
+				print('\n' + y)
+				for z in Log[x][y]:
+					print(' ' + z)
 
 input('\nFinalizado. Aperte "ENTER" para encerrar o programa.')
