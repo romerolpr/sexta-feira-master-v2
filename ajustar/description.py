@@ -6,7 +6,7 @@ from colorama import Fore, Style
 session = HTMLSession()
 
 # variáveis do projeto
-projeto = 'bmiindustrial.com.br'
+projeto = 'hidralpress.com.br'
 htdocs = f'C://xampp/htdocs/{projeto}/' # alterar para htdocs proprio
 
 # variáveis do sistema
@@ -17,17 +17,11 @@ VAR = {
 	'nova-mpi': False,
 
 	# Recupera todas as mpis automaticamente
-	'vAll': False,
+	'vAll': True,
 	'vMPI': [
 		# Inserir aqui arquivos manualmentes (sem .php)
-		'banho-zinco-amarelo',
-		'banho-zinco-parado',
-		'empresa-pintura-eletrostatica',
-		'galvanizacao-eletrolitica',
-		'pintura-eletrostatica',
-		'pintura-eletrostatica-esquadrias-aluminio',
-		'pintura-eletrostatica-valor',
-		'zincagem-negra',
+		'agencia-campanha-incentivo',
+		'agencia-produtora-eventos-sp',
 	] 
 }
 
@@ -145,7 +139,7 @@ def fix_code(t, html, a):
 	content = []
 	try:
 
-		method = '.mpi-content' if VAR['nova-mpi'] else 'article'
+		method = '.mpi-content > p, .tabs-content > p' if VAR['nova-mpi'] else 'article > p'
 
 		# removendo tags
 		m 	= re.search(r"\$desc\s*=\s*[\"\']\w*\s*.+[\"\'\;]", html)
@@ -170,7 +164,7 @@ def fix_code(t, html, a):
 
 		if descfix:
 			# resgata os paragrafos
-			article = session.get(url_replace(VAR['htdocs'], a)).html.find(f'{method} > p')
+			article = session.get(url_replace(VAR['htdocs'], a)).html.find(f'{method}')
 			# verifica a description
 			for p in article:
 

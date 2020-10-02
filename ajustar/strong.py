@@ -3,7 +3,7 @@ from tqdm.auto import tqdm
 from requests_html import HTMLSession
 from colorama import Fore, Style
 
-projeto = 'bmiindustrial.com.br'
+projeto = 'hidralpress.com.br'
 
 # variáveis do sistema
 VAR = {
@@ -15,7 +15,7 @@ VAR = {
 	# Recupera todas as mpis automaticamente
 	'vAll': True,
 	'vMPI': [
-		# Inserir aqui arquivos manualmentes (sem .php)
+		'confeccao-moldes-plasticos'
 	] 
 }
 
@@ -126,11 +126,11 @@ def fix_strong(t, html, a):
 		soup = BeautifulSoup(mask(html, True), "html.parser")
 		title = t.strip()
 
-		method = '.mpi-content' if VAR['nova-mpi'] else 'article'
+		method = '.mpi-content > p, .tabs-content > p' if VAR['nova-mpi'] else 'article > p'
 
 		# tenta rodar os ajustes
 
-		for p in soup.select(f'{method} > p'):
+		for p in soup.select(method):
 
 			child = p.find_all('strong')
 
