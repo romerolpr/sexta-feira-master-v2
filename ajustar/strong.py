@@ -3,19 +3,49 @@ from tqdm.auto import tqdm
 from requests_html import HTMLSession
 from colorama import Fore, Style
 
-projeto = 'hidralpress.com.br'
+projeto = 'formflex.com.br'
 
 # variáveis do sistema
 VAR = {
 	
 	'htdocs': f'C://xampp/htdocs/{projeto}/',
-	'url': 'mpitemporario.com.br/projetos/',
+	'url': 'localhost/',
 	'nova-mpi': False,
 
 	# Recupera todas as mpis automaticamente
-	'vAll': True,
+	'vAll': False,
 	'vMPI': [
-		'confeccao-moldes-plasticos'
+		'certificado-papel-moeda',
+		'convite-papel-moeda-preco',
+		'credencial-papel-couche',
+		'diploma-papel-moeda',
+		'fabricante-papel-ingresso',
+		'ingresso-folha',
+		'ingresso-papel-moeda',
+		'ingresso-papel-moeda-a4',
+		'ingresso-papel-termico',
+		'ingresso-papel-filigranado',
+		'ingresso-pos',
+		'ingresso-rolo',
+		'ingressos-seguranca',
+		'onde-comprar-papel-diploma',
+		'onde-comprar-papel-moeda-ingressos',
+		'papel-credencial',
+		'papel-danfe',
+		'papel-certificado',
+		'papel-certificado-comprar',
+		'papel-certificado-preco',
+		'papel-diploma',
+		'papel-ingresso-a4',
+		'papel-ingresso-branco',
+		'papel-moeda-a4-ingressos',
+		'papel-moeda-cartorio',
+		'papel-moeda-fazer-ingressos',
+		'papel-moeda-impressao-ingressos',
+		'papel-moeda-ingresso',
+		'papel-moeda-ingresso-folha-a4',
+		'papel-cartorio',
+		'papel-impressao-ingressos',
 	] 
 }
 

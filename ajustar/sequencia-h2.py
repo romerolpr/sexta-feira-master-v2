@@ -6,35 +6,18 @@ from colorama import Fore, Style
 session = HTMLSession()
 
 # variáveis do projeto
-projeto = 'jlterraplenagem.com.br'
+projeto = 'gjdistribuidora.com.br'
 htdocs = f'C://xampp/htdocs/{projeto}/' # alterar para htdocs proprio
 
 # inserir os arquivos para serem editados (sem .php)
 f = [
-	'construir-galpao',
-	'empresas-automacao-industrial',
-	'empresas-engenharia-construcao',
-	'empresas-instrumentacao',
-	'empresas-locacao-equipamentos',
-	'empresas-planejamento-gerenciamento-obras',
-	'gabiao-preco',
-	'gabiao-preco-m3',
-	'gasoduto-preco',
-	'instalacoes-eletricas-preco',
-	'instrumentacao-equipamentos',
-	'locacao-equipamentos-obra',
-	'locacao-maquinas-equipamentos-construcao-civil',
-	'locacao-maquinas-pesadas',
-	'orcamento-supressao-vegetacao',
-	'pavimentacao-intertravada-preco',
-	'piso-intertravado-valor-m2',
-	'preco-metro-quadrado-pavimentacao-asfaltica',
-	'rebaixamento-lencol-freatico-empresas-sp',
-	'servico-drenagem',
-	'servico-drenagem-urbana',
-	'servicos-construcao-civil',
-	'empresa-terraplanagem-campinas',
-	'empresas-automacao-industrial-campina',
+	'ordenhadeira-portatil-pequena',
+	'ordenhadeira-quanto-custa',
+	'ordenhadeira-valor',
+	'pecas-motores-eletricos',
+	'pecas-ordenha',
+	'pecas-ordenha-canalizada',
+	'valor-ordenhadeira-portatil',
 ]
 
 Log = { 
@@ -108,12 +91,12 @@ def mask(c, i):
 # cria o arquivo
 def create(body, file):
 	from pathlib import Path
-	arquivo = projeto + '/' + file
+	arquivo = projeto + '/sequencia-h2/' + file
 	# realiza a criacao dos arquivos
 	try:
 
 		# faz a criacao da pasta
-		Path(f'./projetos/{projeto}').mkdir(parents=True, exist_ok=True)
+		Path(f'./projetos/{projeto}/sequencia-h2/').mkdir(parents=True, exist_ok=True)
 
 	    # faz a criacao dos arquivos
 		with open(f'./projetos/{arquivo}' + '.php', 'w', encoding='utf-8') as f:

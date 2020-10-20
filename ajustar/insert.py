@@ -46,7 +46,48 @@ VAR = {
 	# Controle de interação MPIs
 	'vAll': decode_json('config')['vAll'],
 	# Lista para interar nas mpis manualmente
-	'MPI': [],
+	'MPI': [
+		'comprar-piscina-fibra-vidro',
+		'comprar-piscina-fibra-preco',
+		'construcao-piscina-preco',
+		'construir-uma-piscina-quanto-custa',
+		'construir-uma-piscina-valor',
+		'empresa-toboga',
+		'fabrica-piscinas',
+		'fabrica-piscinas-fibra',
+		'instalacao-piscina-hidro',
+		'instalacao-piscinas-fibra',
+		'instalacao-piscinas-precos',
+		'piscina-fibra-venda',
+		'piscina-fibra-completa',
+		'piscina-fibra-completa-venda',
+		'piscina-fibra-completa-preco',
+		'piscina-fibra-comprar',
+		'piscina-fibra-vidro',
+		'piscina-fibra-vidro-preco',
+		'piscina-fibra-direto-da-fabrica',
+		'piscina-fibra-pequena-canto',
+		'piscina-fibra-preco-tamanho',
+		'piscina-fibra-qual-o-valor',
+		'piscina-fibra-quanto-custa',
+		'piscinas-fibra-grandes-preco',
+		'piscinas-mg',
+		'piscinas-sc',
+		'piscinas-sp',
+		'piscinas-no-ms',
+		'piscinas-no-mt',
+		'piscinas-no-pr',
+		'piscinas-no-rj',
+		'piscinas-no-rs',
+		'preco-tamanho-piscina-fibra',
+		'preco-toboagua-piscina',
+		'quanto-uma-piscina-fibra',
+		'toboagua-piscina-preco',
+		'toboagua-preco',
+		'valor-construir-uma-piscina',
+		'venda-piscinas',
+		'venda-piscinas-fibra',
+	],
 }
 
 # comandos do sistema
@@ -202,18 +243,17 @@ while True:
 	def create(body, file):
 		from pathlib import Path
 		import re
-		arquivo = projeto + '/breadcrumb/' + file
+		arquivo = projeto + '/insert/' + file
 		# realiza a criacao dos arquivos
 		try:
 
 			# faz a criacao da pasta
-			Path(f'./projetos/{projeto}/breadcrumb/').mkdir(parents=True, exist_ok=True)
+			Path(f'./projetos/{projeto}/insert/').mkdir(parents=True, exist_ok=True)
 
 		    # faz a criacao dos arquivos
 			with open(f'./projetos/{arquivo}' + '.php', 'w', encoding='utf-8') as f:
 
-				body = body.replace('<!-- {} -->'.format(VAR['code']), '<?={}?>'.format(VAR['code']))
-				body = re.sub(r'<\?=\s*\$caminho2\s*\?>', '', body)
+				body = body.replace('<!-- {} -->'.format(VAR['code']), '<?{}?>'.format(VAR['code']))
 				#cria
 				f.write(body)
 				f.write('</html>')
@@ -231,18 +271,12 @@ while True:
 
 			# tenta rodar os ajustes
 
-			for wrapper in soup.select('div.wrapper'):
+			for Element in soup.select('article.full'):
 
-				soup.find('h1').extract()
-
-				tag = soup.new_tag('div')
+				tag = soup.new_tag('h2')
 				tag.string = '<!-- {} -->'.format(VAR['code'])
 
-				wrapper.insert_before(tag)
-
-			for e in elements:
-				if '$h1' in e:
-					del elements[elements.index(e)]
+				Element.insert_before(tag)
 
 
 			# retorna novo código

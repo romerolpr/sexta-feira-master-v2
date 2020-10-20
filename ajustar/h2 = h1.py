@@ -6,7 +6,7 @@ from colorama import Fore, Style
 session = HTMLSession()
 
 # variáveis do projeto
-projeto = 'formflex.com.br'
+projeto = 'bumeranguebrindes.com'
 htdocs = f'C://xampp/htdocs/{projeto}/' # alterar para htdocs proprio
 
 # variáveis do sistema
@@ -17,20 +17,9 @@ VAR = {
 	'nova-mpi': False,
 
 	# Recupera todas as mpis automaticamente
-	'vAll': True,
+	'vAll': False,
 	'vMPI': [
 		# Inserir aqui arquivos manualmentes (sem .php)
-		'botons-personalizados-belo-horizonte',
-		'botons-personalizados-bh',
-		'botons-personalizados-comprar',
-		'bottons-personalizados',
-		'bottons-personalizados-atacado',
-		'bottons-personalizados-valor',
-		'brindes-empresariais-personalizados',
-		'brindes-empresas',
-		'brindes-personalizados',
-		'brindes-personalizados-belo-horizonte',
-		'brindes-personalizados-bloco-anotacoes',
 		'brindes-personalizados-comprar',
 		'brindes-personalizados-empresas',
 		'brindes-personalizados-eventos-empresariais',
@@ -50,7 +39,9 @@ VAR = {
 		'empresa-brindes-promocionais',
 		'empresa-camisetas-personalizadas',
 		'empresa-chinelos-personalizados',
+		'empresa-chinelos-personalizados-casamento',
 		'empresa-que-faz-brindes-personalizados',
+		'fabrica-chinelos-personalizados',
 		'fabrica-camisa-personalizada',
 		'fornecedor-chinelos-personalizados',
 		'fornecedores-camisas-personalizadas',
@@ -77,8 +68,7 @@ VAR = {
 Log = {
 
 	'Warning': {
-		'Não foi possível ajustar a description': [],
-		'Description atual está correta.': [],
+		'O arquivo não possui H2': [],
 	},
 
 	'Error': {
@@ -167,12 +157,12 @@ def mask(c, i):
 # cria o arquivo
 def create(body, file):
 	from pathlib import Path
-	arquivo = projeto + '/description/' + file
+	arquivo = projeto + '/h2 = h1/' + file
 	# realiza a criacao dos arquivos
 	try:
 
 		# faz a criacao da pasta
-		Path(f'./projetos/{projeto}/description/').mkdir(parents=True, exist_ok=True)
+		Path(f'./projetos/{projeto}/h2 = h1/').mkdir(parents=True, exist_ok=True)
 
 	    # faz a criacao dos arquivos
 		with open(f'./projetos/{arquivo}' + '.php', 'w', encoding='utf-8') as f:
@@ -182,7 +172,7 @@ def create(body, file):
 	    Log['Error']['Não foi possível criar o arquivo'].append(f'=> {file}')
 
 # faz o ajuste nos strongs do projeto
-def fix_code(t, html, a):
+def add_content(t, html, a):
 	import re
 	# armazenando elementos
 	content = []
@@ -190,77 +180,28 @@ def fix_code(t, html, a):
 
 		method = '.mpi-content > p, .tabs-content > p' if VAR['nova-mpi'] else 'article > p'
 
-		# removendo tags
-		m 	= re.search(r"\$desc\s*=\s*[\"\']\w*\s*.+[\"\'\;]", html)
-		sub = re.sub(r'<.*>', '', m.group(0)).strip()
-		space = m.group(0)
-
-		# redigita o código
-		html = re.sub(r'\$desc\s*=\s*[\"\']\w*\s*.+[\"\'\;]', sub, html)
-		html = html.replace(' , ', ', ') if space.find(' , ') >= 0 else html
-		html = html.replace(' . ', ' ') if space.find(' . ') >= 0 else html
-
-
 		# criando o soup em html
 		soup = BeautifulSoup(mask(html, True), "html.parser")
-		title = t.strip()
+		title = t.lower().strip()
 
-		# resgata a description atual no mpitemporario e arquiivo local
-		currentDesc = session.get(url_replace(VAR['htdocs'], a)).html.find('head meta[name="description"]', first=True).attrs['content']
+		# tenta rodar os ajustes
 
-		# verifica se a description está realmente errada
-		descfix = True if remove_accent(title.lower()) not in remove_accent(currentDesc.lower()) or re.search(r'<.*>', m.group()) or m.group().find('  ') or not remove_accent(m.group(0).lower()).find(remove_accent(title.lower())) else False
+		for i in soup.select('article'):
 
-		if descfix:
-			# resgata os paragrafos
-			article = session.get(url_replace(VAR['htdocs'], a)).html.find(f'{method}')
-			# verifica a description
-			for p in article:
+			Element = i.find_all('h2')
 
-
-				# compara já retirando acentos
-				a = p.text.lower().find(remove_accent(title).lower())
-				b = remove_accent(p.text).lower().find(title.lower())
-				
-				if b >= 0:
-					if len(p.text[b:]) >= 125:
-						desc = remove_accent(p.text[b:]).strip()
-						break
-				elif a >= 0:
-					if len(p.text[a:]) >= 125:
-						desc = p.text[a:].strip()
-						break
-
-			if desc:
-				if desc[-1] == '.' and len(desc) >= 140 and len(desc) <= 160 :
-				    desc = desc.lower()
-				else:
-					while len(desc) > 145:
-					    desc = desc.split(" ")
-					    del desc[-1]
-					    desc = " ".join(desc)
-
-					desc.lower()
-					desc += '... saiba mais.'.encode("latin1").decode("unicode_escape")
-
-				desc = f'$desc				= "{desc.capitalize()}";'
-
-				# print(desc)
-
+			# verifica se o paragrafo tem sequencia de h2
+			if Element:
+				for e in Element:
+					if e.string.lower().strip() == title:
+						e.string = 'CONHEÇA MAIS SOBRE ' + e.string.strip()
 			else:
-				Log['Warning']['Não foi possível ajustar a description'].append(f'=> {a}')
-
-		else:
-			Log['Warning']['Description atual está correta.'].append(f'=> {a}')
-
-		# aplica a nova description
+				Log['O arquivo não possui H2'].append(f'=> {a}')
 
 		# retorna novo código
 		for elem in soup.prettify(formatter=None):
 			content.append(elem)
 		value = ''.join(map(str, content))
-
-		value = re.sub(r"\$desc\s*=\s*[\"\']\w*\s*.+[\"\'\;]", desc, str(soup)) if desc else value
 
 		return mask(value, False)
 
@@ -299,7 +240,7 @@ try:
 			try:
 
 				# Após receber todos os valores com sucesso, realiza os ajustes e retira a máscara do código
-				body = fix_code(title, html, a)
+				body = add_content(title, html, a)
 
 				# tudo certo, gera o arquivo
 				if body != False:
